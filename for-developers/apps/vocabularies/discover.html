@@ -1,0 +1,513 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Discover new vocabularies · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/discover" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Discover new vocabularies
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>Vocabularies aim at describing data from <strong>(potentially very) specific domains</strong>. Therefore, it is only normal that only a small portion of app use cases are covered by the few vocabularies we listed as <a href="/for-developers/apps/vocabularies/well-known">well-known vocabularies</a>. However, for the sake of interoperability, creating new vocabularies each time you create a new app is also a bad idea: if someone already did the work, you don’t want to re-invent the wheel, right?</p>
+
+<p>So if the vocabulary of your dreams is out there somewhere on the web, how to find it? Hopefully, there exists some resources to support you.</p>
+
+<h1 id="ontology-catalogues">Ontology catalogues</h1>
+
+<h2 id="linked-open-vocabularies">Linked Open Vocabularies</h2>
+<ul>
+  <li>IRI: https://lov.linkeddata.es/</li>
+  <li>Description: You knew the Linked Open Data? Get ready for the Linked Open Vocabularies! It’s (at the time of writing) the big player in the world of ontology catalogues. The LOV references vocabularies meeting certain quality standards, and offers some search functionalities. For more information, you can refer to <a href="https://www.researchgate.net/profile/Ghislain_Atemezing/publication/312015882_Linked_Open_Vocabularies_LOV_A_gateway_to_reusable_semantic_vocabularies_on_the_Web/links/59fc2870aca272347a1f33f5/Linked-Open-Vocabularies-LOV-A-gateway-to-reusable-semantic-vocabularies-on-the-Web.pdf">this paper</a>, published by the LOV creators.</li>
+</ul>
+
+<p><img src="/assets/img/tutorials/vocabularies/lov_test.png" alt="An overview of the LOV vocabularies" /></p>
+
+<h2 id="other-catalogues">Other catalogues</h2>
+
+<ul>
+  <li>http://lov4iot.appspot.com/?p=ontologies (specific to IoT ontologies)</li>
+  <li>http://vocab.org/</li>
+  <li>http://ontologi.es/</li>
+</ul>
+
+<h1 id="semantic-web-search-engines">Semantic Web search engines</h1>
+
+<ul>
+  <li>http://www.vocab.cc/</li>
+</ul>
+
+<p>If you did not find what you were looking for, it is time to <a href="/for-developers/apps/vocabularies/create">create your own vocabulary</a></p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known"
+                            
+                          >Well-known vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/common"
+                            
+                          >Common vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/technical"
+                            
+                          >Vocabularies describing technical standards</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/core"
+                            
+                          >Core vocabularies for Linked Data</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/solid"
+                            
+                          >Vocabularies essential to solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/discover"
+                             class="is-active" 
+                          >Discover new vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

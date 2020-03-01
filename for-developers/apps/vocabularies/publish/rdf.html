@@ -1,0 +1,587 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Publish your vocabulary as RDF · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/publish/rdf" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Publish your vocabulary as RDF
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>The W3C issued some <a href="https://www.w3.org/TR/swbp-vocab-pub/">recipes for publishing your vocabulary</a> that are a good complement to what is introduced here, as well as some more generic <a href="https://www.w3.org/TR/chips/">good practices for HTTP resources</a>.</p>
+
+<h2 id="-vocabulary-iri"><a id="iri"></a> Vocabulary IRI</h2>
+
+<p>One of the rules of <a href="https://www.w3.org/DesignIssues/LinkedData">Linked Data</a> is that things are named with IRI so that they can be looked up. Vocabularies are no exception, so <strong>make sure yours has an IRI you control</strong>. Your vocabulary should be accessible when looking up its IRI. There exists some recommendations to make sure the IRI you picked is <a href="https://www.w3.org/TR/cooluris/">cool</a>:</p>
+<ol>
+  <li>Keep it <strong>simple</strong>: short, memorable IRI are less error-prone</li>
+  <li>Ensure <strong>stability</strong> (remember: <a href="https://www.w3.org/Provider/Style/URI">cool IRI don’t change</a>). To this end, consider applying for a <a href="https://w3id.org/">w3id</a>, a permanent IRI that redirects to your own, less stable namespace.</li>
+  <li>Promote <strong>manageability</strong> by using versioned IRI. The <strong>W3C versioning</strong> approach is to ensure that the permanent IRI of a document always points to its latest version, and that each version has a specific IRI typically including its publication date or version number (referenced with the property <a href="http://www.w3.org/2002/07/owl#versionInfo"><code class="highlighter-rouge">owl:versionInfo</code></a>). Each version points to the previous one with an <a href="http://www.w3.org/2002/07/owl#priorVersion"><code class="highlighter-rouge">owl:priorVersion</code></a> link, and the latest version includes a <a href="http://www.w3.org/2002/07/owl#versionIRI"><code class="highlighter-rouge">owl:versionIRI</code></a> property indicating its versioned IRI. The <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/">Dublin Core</a> also provides versioning terms: <a href="http://purl.org/dc/terms/isReplacedBy"><code class="highlighter-rouge">terms:isReplacedBy</code></a> and <a href="http://purl.org/dc/terms/replaces"><code class="highlighter-rouge">terms:replaces</code></a> to connect versions to one another, <a href="http://purl.org/dc/terms/isVersionOf"><code class="highlighter-rouge">terms:isVersionOf</code></a> to connect version to the permanent IRI.</li>
+</ol>
+
+<p>We already chose a w3id identifier for the webcomic vocabulary, so all we need to do is versioning, which could look like the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix terms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
+
+&lt;http://w3id.org/webcomic/ns&gt; rdf:type owl:Ontology ;
+                               owl:versionInfo "0.1.0" ;
+                               owl:versionIRI &lt;http://w3id.org/webcomic/2019/10/09/ns&gt; ;
+                               owl:priorVersion &lt;http://w3id.org/webcomic/2019/10/08/ns&gt; ;
+                               terms:isReplacedBy &lt;http://w3id.org/webcomic/2019/10/08/ns&gt; .
+</code></pre></div></div>
+
+<h2 id="vocabulary-metadata">Vocabulary metadata</h2>
+
+<p>We already described some meta that should be attached to a vocabulary when covering <a href="/for-developers/apps/vocabularies/create/best-practices#vocab-doc">documentation</a> and versioning. Apart from versioning info and a human-readable description, the <a href="https://lov.linkeddata.es">Linked Open Vocabularies</a> (a reference for vocabulary publication) recommends to add <a href="https://lov.linkeddata.es/Recommendations_Vocabulary_Design.pdf">additional metadata to a vocabulary</a>:</p>
+<ul>
+  <li>A <a href="http://purl.org/vocommons/voaf#preferredNamespaceUri">voaf:preferredNamespaceUri</a> to reference the preferred IRI of the vocabulary, e.g. its permanent IRI as opposed to its versioned ones.</li>
+  <li>A <a href="http://purl.org/vocommons/voaf#preferredNamespacePrefix">voaf:preferredNamespacePrefix</a> to indicate a short, convenient way of referencing your vocabulary instead of its IRI.</li>
+  <li>A <a href="http://purl.org/dc/terms/title">terms:title</a> and <a href="http://purl.org/dc/terms/description">terms:description</a>, which play the same role as <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a> and <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:comment</a></li>
+  <li>In addition to the version information that we already mentionned (namely <a href="http://www.w3.org/2002/07/owl#versionInfo"><code class="highlighter-rouge">owl:versionInfo</code></a>), information about release dates with <a href="http://purl.org/dc/terms/issued">terms:issued</a> for the initial release and <a href="http://purl.org/dc/terms/modified">terms:modified</a> for the release of the current version</li>
+  <li>Relevant information for authoring and intellectual property:
+    <ul>
+      <li><a href="http://purl.org/dc/terms/creator">terms:creator</a> and <a href="http://purl.org/dc/terms/contributor">terms:contributor</a> the creator(s) and contributor(s) of the vocabulary. All the better if they have webid that can be linked to!</li>
+      <li><a href="http://purl.org/dc/terms/rights">terms:rights</a> or <a href="http://creativecommons.org/ns#licence">cc:license</a> to describe the property rights or licence under which the vocabulary is available. Some widely used licenses are themselves identified by IRI, so you can directly reference them: <a href="http://creativecommons.org/licenses/by/4.0/">creative commons</a>, <a href="https://opensource.org/licenses/Apache-2.0">Apache 2.0</a>, <a href="https://opensource.org/licenses/mit-license">MIT</a>…</li>
+      <li><a href="http://purl.org/dc/terms/publisher">terms:publisher</a> the publisher of the vocabulary, e.g. when creators and contributors work as part of an organization.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Putting all together, the metadata of the webcomic vocabulary could look something like that:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix cc: &lt;http://creativecommons.org/ns#&gt; .
+@prefix terms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+
+&lt;http://w3id.org/webcomic/ns&gt; rdf:type owl:Ontology ;
+                               # Ownership
+                               cc:license &lt;http://creativecommons.org/licenses/by/4.0/&gt; ;
+                               terms:creator &lt;https://cleopatra.solid.community/profile/card#me&gt; ;
+                               terms:contributor &lt;https://jcaesar.solid.community/profile/card#me&gt; ;
+                               terms:publisher &lt;https://jcaesar.solid.community/profile/organizations/spqr.ttl#spqr&gt;;
+                               # Description
+                               terms:title "Webcomic ontology" ;
+                               terms:description """
+The Webcomic ontology aims at describing webcomics, the things they talk about, the artists who make them and the people who read them.
+    """ ;
+                               vann:preferredNamespacePrefix "webco" ;
+                               vann:preferredNamespaceURI &lt;http://w3id.org/webcomic/ns&gt; ;
+                               foaf:primaryTopic "Webcomics" ;
+                               # Version
+                               owl:versionIRI &lt;http://w3id.org/webcomic/2019/10/09/ns&gt; ;
+                               owl:priorVersion &lt;http://w3id.org/webcomic/2019/10/08/ns&gt; ;
+                               terms:isReplacedBy &lt;http://w3id.org/webcomic/2019/10/08/ns&gt;
+                               owl:versionInfo "0.1.0" ;
+                               terms:issued "52BC-01-01"
+                               terms:modified "2019-10-09".
+</code></pre></div></div>
+
+<h2 id="content-negotiation">Content negotiation</h2>
+
+<p>Now that you have an IRI, a vocabulary and its metadata, and its documentation (that you might want to regenerate to include the metadata), you’re nearly there! The next step to publishing your vocabulary is setting up <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">content negotiation</a>, so that your server serves tailored content depending on who asks. The first usage for this is to show, under the same IRI, documentation to humans and RDF to programs. If you exported your vocabulary in different RDF syntaxes, you can also use content negotiation to serve these different flavours to clients who specifically ask for one. The content negotiation mechanism also explains why we left the file extension out of the IRI: the resource identified by the IRI is not necessarily a single document.</p>
+
+<p>Content negotiation is based on HTTP <code class="highlighter-rouge">Accept</code> headers:</p>
+<ul>
+  <li>On <code class="highlighter-rouge">Accept: X</code>, X being a IANA MIME type for an RDF syntax (e.g. <code class="highlighter-rouge">text/turtle</code>, <code class="highlighter-rouge">application/rdf+xml</code>, <code class="highlighter-rouge">application/trig</code>, ` text/n3<code class="highlighter-rouge">, </code> 	application/ld+json`…), serve the appropriate document</li>
+  <li>On <code class="highlighter-rouge">Accept: Y</code>, Y being a IANA MIME type for human-readable text (e.g. <code class="highlighter-rouge">text/plain</code>, <code class="highlighter-rouge">application/xhtml+xml</code>, <code class="highlighter-rouge">text/html</code>…), serve the documentation</li>
+  <li>If the client does not provide one, be sure to implement a default behavior, e.g. serving the Turtle document.</li>
+</ul>
+
+<p>Here are specific instructions to set up content negotiation on some popular web servers:</p>
+<ul>
+  <li><a href="https://pieterheyvaert.com/blog/2019/02/25/nginx-conneg/">nginx</a></li>
+  <li><a href="https://linkingresearch.wordpress.com/2013/10/07/how-to-properly-publish-a-vocabulary-or-ontology-in-the-web-part-4-of-6/">apache</a></li>
+</ul>
+
+<p>You now have all the information you need to publish your vocabulary online in a friendly manner for people and programs who need to read it.</p>
+
+<!--What about publishing it in a [form that makes it easy to reuse for developers](/for-developers/apps/vocabularies/publish/artifacts) ?-->
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create"
+                            
+                          >Create your own vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/best-practices"
+                            
+                          >Vocabulary building best practices</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/extended"
+                            
+                          >Improve your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/methodology"
+                            
+                          >NeOn, a vocabulary creation methodology</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/use/extended"
+                            
+                          >Describe data for Solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish"
+                            
+                          >Publish your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/rdf"
+                             class="is-active" 
+                          >Publish your vocabulary as RDF</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/artifacts"
+                            
+                          >Publish your vocabulary as code artifacts</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

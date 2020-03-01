@@ -1,0 +1,583 @@
+<!doctype html>
+<html>
+  <head>
+    <title>This Week in Solid 2019-07-18 · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/this-week-in-solid/2019-07-18" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+        
+        
+          <li>
+            <a href="">
+              This Week in Solid 2019-07-18
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+
+        <h1 id="18th-july-2019">18th July 2019</h1>
+
+<p>Hello and welcome to another edition of This Week in Solid!</p>
+
+<p><a href="https://solidproject.org">Solid</a> is a set of open specifications, built on existing open standards, that describes how to build applications in such a way that users can conveniently switch between data storage providers and application providers and take the data generated along.</p>
+
+<p>This is a weekly summary of Solid progress.</p>
+
+<p>Want something mentioned? Contact the Solid Manager at info@solidproject.org. This Week in Solid is openly developed <a href="http://github.com/solid/solidproject.org/blob/master/_posts/this-week-in-solid/next.md">on GitHub</a>. If you find any errors in this week’s issue please <a href="https://github.com/solid/solidproject.org/pulls">submit a pull request</a>.</p>
+
+<p>Want to get involved? <a href="https://solidproject.org/standardisation">Contributions are welcome.</a></p>
+
+<p>Every Thursday there is an hour-long public call where newcomers can introduce themselves, anyone can ask general questions about Solid, and we recap the weeks’ works on Solid.</p>
+
+<p>Tune in at <a href="https://zoom.us/j/261297657">this line</a>:</p>
+<ul>
+  <li>on the 2nd January 2020 at 16:00.</li>
+  <li>on the 9th January 2020 at 10:00.</li>
+  <li>on the 16th January 2020 at 16:00.</li>
+  <li>on the 23rd January 2020 at 10:00.</li>
+  <li>(and so on, alternating at 10:00 CET and 16:00 CET, unless otherwise noted here)</li>
+</ul>
+
+<h3 id="updates-from-the-solid-community">Updates from the Solid Community</h3>
+
+<h4 id="news--blog-posts">News &amp; Blog Posts</h4>
+<p>Have you seen any articles about Solid this week? If you’ve seen any articles or written blog posts about Solid please do send them over for next week.</p>
+
+<h4 id="new-solid-panels">New Solid Panels</h4>
+<p><a href="https://github.com/solid/process/blob/master/panels.md">Solid Panels</a> are groups of individuals focused on a specific problem or domain relevant to Solid, with an aim to propose changes to the Solid Specification, Solid Roadmap, and/or Supporting Documentation. Anyone may <a href="https://github.com/solid/process/blob/master/panels.md">join a panel or suggest a new panel</a>.</p>
+
+<ul>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#outreach-panel">Outreach Panel</a> was started this week with the aim to develop proposals about how to technically link to other initiatives to build positive win-win collaborations. If you are interested in the topic join the <a href="https://github.com/solid/process/blob/master/panels.md#outreach-panel">Outreach Panel</a>.</li>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#solid-teaching-material-panel">Solid Teaching Material Panel</a> was started this week with the aim to produce content to be able to effectively teach people to build Solid identity providers, Pods, and apps. If you are interested in the topic join the <a href="https://github.com/solid/process/blob/master/panels.md#solid-teaching-material-panel">Solid Teaching Material Panel</a>.</li>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#specification-entry-document-panel">Specification Entry Document Panel</a> was started this week to create a structure for the document at https://github.com/solid/specification/, and the division in documents it links to and well as translating the community consensus regarding the application of the specifications mentioned in this document into a clear, unambiguous and implementable text. If you are interested in the topic join the <a href="https://github.com/solid/process/blob/master/panels.md#specification-entry-document-panel">Specification Entry Document Panel</a>.</li>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#internationalisation-panel">Internationalisation Panel</a> was started to ensure internationalisation is taken into consideration during the Solid design. If you are interested in the topic join the <a href="https://github.com/solid/process/blob/master/panels.md#internationalisation-panel">Internationalisation Panel</a>.</li>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#accessibility-panel">Accessibility Panel</a> was started to ensure that the technical decisions are taking accessibility considerations into account. If you are interested in the topic join the <a href="https://github.com/solid/process/blob/master/panels.md#accessibility-panel">Accessibility Panel</a>.</li>
+</ul>
+
+<h4 id="active-conversations-about-proposals">Active conversations about proposals</h4>
+
+<ul>
+  <li>The <a href="https://github.com/solid/process/blob/master/panels.md#specification-entry-document-panel">Specification Entry Document Panel</a> have put forward a <a href="https://github.com/solid/specification/">proposal for the specification structure</a>. If you have any thoughts on this proposal submit them on <a href="https://github.com/solid/specification/issues/5">this issue</a>.</li>
+</ul>
+
+<h4 id="reviewed-solid-proposals-reviewed">Reviewed Solid Proposals Reviewed</h4>
+<p>Candidate proposals to the Solid Specification, Solid Roadmap, or Supporting Documentation submitted for review go through an editorial process before they are accepted. You can read more about the details of the submission and review process of proposals <a href="https://github.com/solid/process#how-to-make-changes">here</a>.</p>
+
+<ul>
+  <li>After weeks of conversation and co-creating the process document explaining how we can make collective decisions has been through the review process. You can read the final result of the <a href="https://github.com/solid/process">decision making process</a>.</li>
+</ul>
+
+<h4 id="new-and-updated-apps-pods-and-identity-providers">New and Updated Apps, Pods, and Identity Providers</h4>
+<p>If you have any new <a href="https://github.com/solid/solid-apps">apps</a>, <a href="https://github.com/solid/pods">Pods</a>, or <a href="https://github.com/solid/solid-idp-list">identity providers</a> make sure to add them to the list so they get included in next weeks edition.</p>
+
+<h4 id="quote-of-the-week">Quote of the week</h4>
+
+<p>coming soon :) If you have any suggestions for your favorite quotes let us know.</p>
+
+<h4 id="upcoming-events">Upcoming Events</h4>
+
+<p>Solid Events are run by members of the Solid community like you. Solid Event organisers write tips for a organising successful Solid events <a href="https://github.com/solid/information/blob/master/solid-events.md">here</a></p>
+
+<p>There are two confirmed Solid Events coming up.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Event</th>
+      <th>Organiser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2019-07-20</td>
+      <td><a href="https://www.eventbrite.com/e/solid-beijing-tickets-65524883691">Solid Beijing</a></td>
+      <td><a href="https://github.com/leinue">Ivy Dom</a></td>
+    </tr>
+    <tr>
+      <td>2019-08-11</td>
+      <td><a href="https://programm.froscon.de/2019/events/2375.html">Solid Cologne</a></td>
+      <td><a href="https://github.com/angelo-v">Angelo Veltens</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Until next week!</p>
+
+<p><a href="https://github.com/Mitzi-Laszlo">Mitzi László</a></p>
+
+      </article>
+
+      <div id="newsletter" class="section">
+  <form
+    action="https://tinyletter.com/ThisWeekInSolid"
+    class="card"
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open('https://tinyletter.com/ThisWeekInSolid', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true"
+  >
+    <div class="card-body section">
+      <h2 class="title">
+        
+          <a href="/this-week-in-solid" title="View past editions of This Week in Solid">
+            Solid每周简报
+          </a>
+        
+      </h2>
+      <p class="content">
+        <label for="tlemail">
+          留下您的电子邮件地址，即可大致了解到Solid的所有内容，每周一次直接发送到您的收件箱。          
+        </label>
+      </p>
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="email" name="email" placeholder="yourmail@example.com" id="tlemail"/>
+        </div>
+      </div>
+      <input type="hidden" value="1" name="embed"/>
+      <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-large" value="提交" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+            <p class="menu-label">2019</p>
+            <ul class="menu-list">
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-12-18">This Week in Solid 2019-12-18</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-12-12">This Week in Solid 2019-12-12</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-12-05">This Week in Solid 2019-12-05</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-11-28">This Week in Solid 2019-11-28</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-11-21">This Week in Solid 2019-11-21</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-11-14">This Week in Solid 2019-11-14</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-11-07">This Week in Solid 2019-11-07</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-10-31">This Week in Solid 2019-10-31</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-10-24">This Week in Solid 2019-10-24</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-10-17">This Week in Solid 2019-10-17</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-10-10">This Week in Solid 2019-10-10</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-10-03">This Week in Solid 2019-10-03</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-09-26">This Week in Solid 2019-09-26</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-09-19">This Week in Solid 2019-09-19</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-09-12">This Week in Solid 2019-09-12</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-09-05">This Week in Solid 2019-09-05</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-08-29">This Week in Solid 2019-08-29</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-08-22">This Week in Solid 2019-08-22</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-08-15">This Week in Solid 2019-08-15</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-08-08">This Week in Solid 2019-08-08</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-08-01">This Week in Solid 2019-08-01</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-07-25">This Week in Solid 2019-07-25</a></li>
+                  
+                
+                  
+                    <li><a href="/this-week-in-solid/2019-07-18">This Week in Solid 2019-07-18</a></li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+            </ul>
+          
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

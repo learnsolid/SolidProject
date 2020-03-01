@@ -1,1 +1,2 @@
-Solidproject.org 中文
+# solidproject.cn
+solidproject.org 网站中文版

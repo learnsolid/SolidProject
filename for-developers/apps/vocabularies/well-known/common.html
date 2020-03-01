@@ -1,0 +1,765 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Common vocabularies · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/well-known/common" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Common vocabularies
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <h1 id="vocabularies-for-the-social-web">Vocabularies for the social Web</h1>
+
+<p><a id="foaf"></a></p>
+
+<h2 id="friend-of-a-friend-foaf">Friend of a Friend (foaf)</h2>
+
+<h3 id="prefix-and-namespace">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://xmlns.com/foaf/0.1/">foaf</a>: <a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a></li>
+</ul>
+
+<h3 id="summary">Summary</h3>
+
+<p>‘Friend of a Friend’ is a vocabulary that describes persons and organizations. It defines the terms that you can use to represent a user profile: name, picture, homepage…</p>
+
+<h3 id="exemple-fragments">Exemple fragments</h3>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w">
+
+</span><span class="err">:</span><span class="n">jcaesar</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">title</span><span class="w"> </span><span class="s">"Imperator"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">name</span><span class="w"> </span><span class="s">"Gaius Julius Caesar"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">givenname</span><span class="w"> </span><span class="s">"Julius"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">family_name</span><span class="w"> </span><span class="s">"Caesar"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">nick</span><span class="w"> </span><span class="s">"Jul"</span><span class="p">.</span><span class="w">
+
+</span><span class="err">:</span><span class="n">spqr</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Organization</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">name</span><span class="w"> </span><span class="s">"Roman republic"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">foaf:</span><span class="n">member</span><span class="w"> </span><span class="err">:</span><span class="n">jcaesar</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a id="vc"></a></p>
+
+<h2 id="vcard-vc">vCard (vc)</h2>
+
+<h3 id="prefix-and-namespace-1">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2006/vcard/ns#">vc</a>: <a href="http://www.w3.org/2006/vcard/ns#">http://www.w3.org/2006/vcard/ns#</a></li>
+</ul>
+
+<h3 id="summary-1">Summary</h3>
+
+<p>This vocabulary describes the vCard model, based on <a href="https://tools.ietf.org/html/rfc6350">RFC6350</a>. It is used for instance by the Profile Viewer of the <a href="https://cleopatra.solid.community/profile/card#me">Solid data browser</a>. Note that there is a lot of overlap between vCard and foaf. The main difference is tat vCard is aligned with an RFC, while foaf is a little lighter, but there are alignments bridging between the two of them, so choosing one does not shut you off from applications using the other.</p>
+
+<h3 id="exemple-fragment">Exemple fragment</h3>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">vc:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2006/vcard/ns#&gt;</span><span class="p">.</span><span class="w">
+
+
+</span><span class="err">:</span><span class="n">me
+</span><span class="w">    </span><span class="nn">vc:</span><span class="n">fn</span><span class="w"> </span><span class="s">"Gaius Julius Caesar"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">vc:</span><span class="n">organization-name</span><span class="w"> </span><span class="s">"Roman republic"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">vc:</span><span class="n">role</span><span class="w"> </span><span class="s">"Imperator"</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a id="as"></a></p>
+
+<h2 id="activity-streams-as">Activity Streams (as)</h2>
+
+<h3 id="prefix-and-namespace-2">Prefix and namespace</h3>
+<ul>
+  <li><a href="https://www.w3.org/ns/activitystreams#">as</a>: <a href="https://www.w3.org/ns/activitystreams#">https://www.w3.org/ns/activitystreams#</a></li>
+  <li><a href="https://www.w3.org/TR/activitystreams-vocabulary/">Vocabulary documentation</a></li>
+</ul>
+
+<h3 id="summary-2">Summary</h3>
+
+<p>‘Activity Streams’ is a vocabulary associated to the <a href="https://www.w3.org/TR/activitystreams-core">homonym standard</a>, used to represent a model for <strong>social interaction on the Web</strong>. It is for instance used in the <a href="https://www.w3.org/TR/activitypub">ActivityPub</a> protocol, instanciated by decentralized social networks such as <a href="https://mastodon.social/about">Mastodon</a> or <a href="https://gnu.io/social/">GNU Social</a>.</p>
+
+<h3 id="exemple-fragments-1">Exemple fragments</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.w3.org/ns/activitystreams"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleopatra joined a group"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Join"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"actor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://cleopatra.solid.community/profile/card#me"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"object"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Simple Group"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">as:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/ns/activitystreams#&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="err">:</span><span class="n">party</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">as:</span><span class="n">Event</span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Party at my p(a)lace"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"I'm celebrating the release of my book, 'De Bello Gallico'"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">as:</span><span class="n">startTime</span><span class="w"> </span><span class="s">"50BC-01-15T18:00:00-00:00"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">as:</span><span class="n">endTime</span><span class="w"> </span><span class="s">"50BC-01-16T05:00:00-00:00"</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a id="sioc"></a></p>
+
+<h2 id="semantically-interlinked-online-communities-sioc">Semantically-Interlinked Online Communities (sioc)</h2>
+
+<h3 id="prefix-and-namespace-3">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://rdfs.org/sioc/ns#">sioc</a>: <a href="http://rdfs.org/sioc/ns#">http://rdfs.org/sioc/ns#</a></li>
+  <li><a href="http://rdfs.org/sioc/spec/">Documentation</a></li>
+</ul>
+
+<h3 id="summary-3">Summary</h3>
+
+<p>From the documentation: The SIOC (Semantically-Interlinked Online Communities) Core Ontology provides the main concepts and properties required to describe information from online communities (e.g., message boards, wikis, weblogs, etc.) on the Semantic Web. SIOC is a modular ontology, so you can pick from its different modules depending on your needs:</p>
+<ul>
+  <li><a href="http://rdfs.org/sioc/access#">http://rdfs.org/sioc/access#</a> - SIOC Access Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/actions#">http://rdfs.org/sioc/actions#</a> - SIOC Actions Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/argument#">http://rdfs.org/sioc/argument#</a> - SIOC Argumentation Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/nepomuk#">http://rdfs.org/sioc/nepomuk#</a> - SIOC-Nepomuk Ontology Mappings</li>
+  <li><a href="http://rdfs.org/sioc/quotes#">http://rdfs.org/sioc/quotes#</a> - SIOC Quotes Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/services#">http://rdfs.org/sioc/services#</a> - SIOC Services Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/swan#">http://rdfs.org/sioc/swan#</a> - SIOC-SWAN Ontology Mappings</li>
+  <li><a href="http://rdfs.org/sioc/types#">http://rdfs.org/sioc/types#</a> - SIOC Types Ontology Module Namespace</li>
+  <li><a href="http://rdfs.org/sioc/wikitalk#">http://rdfs.org/sioc/wikitalk#</a> - SIOC WikiTalk Ontology Module Namespace</li>
+</ul>
+
+<h3 id="example-fragment">Example fragment</h3>
+
+<p>This example comes from the <a href="http://rdfs.org/sioc/spec/">SIOC specification</a></p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">sioc:</span><span class="w"> </span><span class="nl">&lt;http://rdfs.org/sioc/ns#&gt;</span><span class="w">
+</span><span class="kd">@base</span><span class="w"> </span><span class="nl">&lt;http://johnbreslin.com&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="nl">&lt;blog/creating-connections-between-discussion-clouds-with-sioc&gt;</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">sioc:</span><span class="n">Post</span><span class="w"> </span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">has_container</span><span class="w"> </span><span class="nl">&lt;blog/index.php?sioc_type=site#weblog&gt;</span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">has_creator</span><span class="w"> </span><span class="nl">&lt;blog/author/cloud/&gt;</span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">content</span><span class="w"> </span><span class="s">"SIOC provides a unified vocabulary for content and interaction description: a semantic layer that can co-exist with existing discussion platforms."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">topic</span><span class="w"> </span><span class="nl">&lt;blog/category/semantic-web&gt;</span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">topic</span><span class="w"> </span><span class="nl">&lt;blog/category/blogs&gt;</span><span class="p">;</span><span class="w">
+  </span><span class="nn">sioc:</span><span class="n">has_reply</span><span class="w"> </span><span class="nl">&lt;blog/creating-connections-between-discussion-clouds-with-sioc/#comment-123928&gt;</span><span class="w">
+
+</span><span class="nl">&lt;http://johnbreslin.com/blog/author/cloud/&gt;</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">sioc:</span><span class="n">UserAccount</span><span class="p">;</span><span class="w">
+  </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Cloud"</span><span class="na">@en</span><span class="p">.</span><span class="w">
+
+</span><span class="nl">&lt;http://johnbreslin.com/blog/2006/09/07/creating-connections-between-discussion-clouds-with-sioc/#comment-123928&gt;</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">sioc:</span><span class="n">Post</span><span class="p">;</span><span class="w">
+  </span><span class="nn">rdfs:</span><span class="n">seeAlso</span><span class="w"> </span><span class="nl">&lt;http://johnbreslin.com/blog/index.php?sioc_type=comment&amp;amp;sioc_id=123928&gt;</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a id="cc"></a></p>
+
+<h2 id="creative-commons-cc">Creative commons (cc)</h2>
+
+<h3 id="prefix-and-namespace-4">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://creativecommons.org/ns#">cc</a>: <a href="http://creativecommons.org/ns#">http://creativecommons.org/ns#</a></li>
+  <li><a href="https://creativecommons.org/ns">Documentation</a></li>
+</ul>
+
+<h3 id="summary-4">Summary</h3>
+
+<p>This vocabulary helps describing copyright licenses.</p>
+
+<h3 id="example-fragment-1">Example fragment</h3>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The Obelisk ontology is available under the CC 4.0 license...</span><span class="w">
+</span><span class="nl">&lt;http://w3id.org/obelisk/ns/&gt;</span><span class="w"> </span><span class="nn">cc:</span><span class="n">license</span><span class="w"> </span><span class="nl">&lt;http://creativecommons.org/licenses/by/4.0/&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="c1"># ... and here is a description of what that means</span><span class="w">
+</span><span class="nl">&lt;http://creativecommons.org/licenses/by/4.0/&gt;</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">cc:</span><span class="n">License</span><span class="p">;</span><span class="w">
+    </span><span class="nn">cc:</span><span class="n">permits</span><span class="w"> </span><span class="nn">cc:</span><span class="n">Distribution</span><span class="p">;</span><span class="w">
+    </span><span class="nn">cc:</span><span class="n">permits</span><span class="w"> </span><span class="nn">cc:</span><span class="n">DerivativeWorks</span><span class="p">;</span><span class="w">
+    </span><span class="nn">cc:</span><span class="n">requires</span><span class="w"> </span><span class="nn">cc:</span><span class="n">Attribution</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a id="dc"></a></p>
+
+<h2 id="dublic-core-dc">Dublic Core (dc)</h2>
+
+<h3 id="prefix-and-namespace-5">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://purl.org/dc/elements/1.1/">elements</a>: <a href="http://purl.org/dc/elements/1.1/">http://purl.org/dc/elements/1.1/</a></li>
+  <li><a href="http://purl.org/dc/terms/">terms</a>: <a href="http://purl.org/dc/terms/">http://purl.org/dc/terms/</a></li>
+</ul>
+
+<p><a id="geonames"></a></p>
+
+<h2 id="geonames">Geonames</h2>
+
+<h3 id="prefix-and-namespace-6">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.geonames.org/ontology">geo</a>: <a href="http://www.geonames.org/ontology">http://www.geonames.org/ontology</a></li>
+  <li><a href="http://www.geonames.org/ontology/documentation.html">Documentation</a></li>
+</ul>
+
+<p><a id="ical"></a></p>
+
+<h2 id="ical">iCal</h2>
+
+<h3 id="prefix-and-namespace-7">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2002/12/cal/ical">ical</a>: <a href="http://www.w3.org/2002/12/cal/ical">http://www.w3.org/2002/12/cal/ical</a></li>
+</ul>
+
+<p><a id="levt"></a></p>
+
+<h2 id="linked-events">Linked events</h2>
+
+<h3 id="prefix-and-namespace-8">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://linkedevents.org/ontology/">levt</a>: <a href="http://linkedevents.org/ontology/">http://linkedevents.org/ontology/</a></li>
+</ul>
+
+<p><a id="meeting"></a></p>
+
+<h2 id="meeting">Meeting</h2>
+
+<h3 id="prefix-and-namespace-9">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/ns/pim/meeting#"><code class="highlighter-rouge">mee</code></a>: <a href="http://www.w3.org/ns/pim/meeting#">http://www.w3.org/ns/pim/meeting#</a></li>
+</ul>
+
+<p><a id="mo"></a></p>
+
+<h2 id="music-ontology-mo">Music Ontology (mo)</h2>
+
+<h3 id="prefix-and-namespace-10">Prefix and namespace</h3>
+<ul>
+  <li>mo: http://purl.org/ontology/mo/</li>
+</ul>
+
+<p><a id="rlog"></a></p>
+
+<h2 id="rdf-logger-rlog">RDF Logger (rlog)</h2>
+
+<h3 id="prefix-and-namespace-11">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#">rlog</a>: <a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#">http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#</a></li>
+</ul>
+
+<p><a id="schema"></a></p>
+
+<h2 id="schemaorg-schema">Schema.org (schema)</h2>
+
+<h3 id="prefix-and-namespace-12">Prefix and namespace</h3>
+<ul>
+  <li><a href="https://schema.org/">schema</a>: <a href="https://schema.org/">https://schema.org/</a></li>
+</ul>
+
+<p><a id="time"></a></p>
+
+<h2 id="time">Time</h2>
+
+<h3 id="prefix-and-namespace-13">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2006/time#">time</a>: <a href="http://www.w3.org/2006/time#">http://www.w3.org/2006/time#</a></li>
+  <li><a href="https://www.w3.org/TR/owl-time/">Documentation</a></li>
+</ul>
+
+<p><a id="tzont"></a></p>
+
+<h1 id="timezone-ontology-tzont">Timezone ontology (tzont)</h1>
+
+<h3 id="prefix-and-namespace-14">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2006/timezone#">tzont</a>: <a href="http://www.w3.org/2006/timezone#">http://www.w3.org/2006/timezone#</a></li>
+</ul>
+
+<p><a id="wgs84"></a></p>
+
+<h2 id="wgs84-coordinates-wgs84_pos">WGS84 coordinates (wgs84_pos)</h2>
+
+<h3 id="prefix-and-namespace-15">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2003/01/geo/wgs84_pos#">wgs84_pos</a>: <a href="http://www.w3.org/2003/01/geo/wgs84_pos#">http://www.w3.org/2003/01/geo/wgs84_pos#</a></li>
+</ul>
+
+<p><a id="wf"></a></p>
+
+<h2 id="workflow-and-issue-tracking-wf">Workflow and issue tracking (wf)</h2>
+
+<h3 id="prefix-and-namespace-16">Prefix and namespace</h3>
+<ul>
+  <li><a href="http://www.w3.org/2005/01/wf/flow#">wf</a>: <a href="http://www.w3.org/2005/01/wf/flow#">http://www.w3.org/2005/01/wf/flow#</a></li>
+</ul>
+
+<p><a href="/for-developers/apps/vocabularies/well-known">Back to the vocabularies index</a></p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known"
+                            
+                          >Well-known vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/common"
+                             class="is-active" 
+                          >Common vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/technical"
+                            
+                          >Vocabularies describing technical standards</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/core"
+                            
+                          >Core vocabularies for Linked Data</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/well-known/solid"
+                            
+                          >Vocabularies essential to solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/discover"
+                            
+                          >Discover new vocabularies</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

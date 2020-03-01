@@ -1,0 +1,556 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Step 2: Understanding Solid · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/first-app/2-understanding-solid" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Step 2: Understanding Solid
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>Now that we’ve <a href="/for-developers/apps/first-app/1-authentication">got the user’s WebID</a>, we have a starting point for fetching
+data from the user’s Pod. Before we do so, let’s review the fundamentals of the concepts behind
+Solid, to the extent necessary to write Solid Web Apps. If you’re already familiar with Linked Data,
+feel free to <a href="/for-developers/apps/first-app/3-reading-data">skip this step</a>.</p>
+
+<p>In traditional back-ends, data is usually stored in database tables. When your back-end is a Solid
+Pod, however, data is stored in <em>Documents</em> living at a certain URL — similar to how HTML documents
+live at a URL.</p>
+
+<p>The user’s WebID can be used both to identify someone — because there’s only one person that
+controls that URL — and as a pointer to a Document containing information relevant to that user.</p>
+
+<p>My WebID is <code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card#me</code>. That means that there is a Document at
+<code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card</code> that contains data relevant to me.</p>
+
+<p>The most important thing to understand when writing a Solid app is how that data is represented. In
+a nutshell, a Document contains a list of relationships between things. For example, the Document
+referred to by my WebID contain the following relationships:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;some person&gt;</code></td>
+      <td>has name</td>
+      <td>Vincent</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;some person&gt;</code></td>
+      <td>works at</td>
+      <td>inrupt</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;some person&gt;</code></td>
+      <td>job title</td>
+      <td>Developer</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(The common terminology is: every row contains a <em>Statement</em>, with the first column being the
+Statement’s <em>Subject</em>, the second column being a <em>Predicate</em>, and the third column the <em>Object</em>.
+These three together are also commonly referred to as a <em>Triple</em>.)</p>
+
+<p>You might notice that the table above is a description of <code class="highlighter-rouge">&lt;some person&gt;</code>: it’s someone whose name
+is Vincent, who works at inrupt and is a developer. However, <code class="highlighter-rouge">&lt;some person&gt;</code> is not really usable as
+a stable and unique identifier: for all we know, someone else might have a Document elsewhere that
+uses the exact same identifier. To solve this problem, Solid uses URLs as unique identifiers: after
+all, the Document that describes the entries already has a URL, and we can be sure that no other
+Document on the web uses the same one.</p>
+
+<p>And like specific elements in an HTML document can be referred to by appending their ID to the
+document’s URL, we can give elements we want to describe in a Document a unique identifier. As you
+might have been able to guess, instead of <code class="highlighter-rouge">&lt;some person&gt;</code> we can use <code class="highlighter-rouge">me</code> - hence the WebID
+<code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card#me</code>!</p>
+
+<p>So now we might consider my Document to look as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td>has name</td>
+      <td>Vincent</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td>works at</td>
+      <td>inrupt</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td>job title</td>
+      <td>Developer</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>But there’s one more thing to consider: interoperability. An important tenet of Solid is being able
+to give multiple apps access to the same data: if I enter my name at service A, I don’t want to have
+to re-enter it at service B. But if service A uses “name” to refer to a person’s full name,
+whereas service B uses “name” to refer to a person’s last name only, that would nip interoperability in
+the bud.</p>
+
+<p>What’s needed here is unique terms that have an agreed-upon definition. And just like we can have a
+Document describing me, we could also make Documents describing a term. And in fact, many people
+have done exactly that, for many different terms you might want to use. These Documents are called
+<em>Vocabularies</em>, and there’s one for things you might want to put on a business card at
+http://www.w3.org/2006/vcard/ns — the <em>vCard</em> Vocabulary. It contains Statements along the lines of:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">#role</code></td>
+      <td>label</td>
+      <td>Role</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#role</code></td>
+      <td>comment</td>
+      <td>To specify the function or part played in a particular situation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#organization-name</code></td>
+      <td>label</td>
+      <td>Organization name</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#organization-name</code></td>
+      <td>comment</td>
+      <td>To specify the organizational name</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(As a shorthand for <code class="highlighter-rouge">http://www.w3.org/2006/vcard/ns#role</code>, we will use <code class="highlighter-rouge">vcard:role</code>.)</p>
+
+<p>So now we can use <code class="highlighter-rouge">vcard:role</code>, and be relatively confident that every other app using it will use
+it in the way described at that URL. We can combine terms from different Vocabularies, e.g. the FOAF
+(“Friend of a friend”) vocabulary has a term to refer to a person’s name at
+<code class="highlighter-rouge">http://xmlns.com/foaf/0.1/name</code>. My Document could thus look something like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td><code class="highlighter-rouge">foaf:name</code></td>
+      <td>Vincent</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td><code class="highlighter-rouge">vcard:organization-name</code></td>
+      <td>inrupt</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td><code class="highlighter-rouge">vcard:role</code></td>
+      <td>Developer</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Everything that needs to be uniquely defined has a URL, with some <em>Literal</em> values for the rest
+(“<em>Vincent</em>”, “<em>inrupt</em>”, and “<em>Developer</em>”). You could imagine “inrupt” to be replaced by a URL as well,
+pointing to a Document describing the organisation itself — but for the purposes of this
+tutorial, we’ll leave it as a simple string <em>Literal</em>.</p>
+
+<p>Phew! That should cover about all the Linked Data theory you should need to know to start working with
+Solid. Next up: actually reading data from such a Document.</p>
+
+<p>Next: <a href="/for-developers/apps/first-app/3-reading-data">Reading data</a></p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          <!-- List all posts in the category (no subcategories) -->
+          <ul>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app"
+                  
+                >Introduction</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/1-authentication"
+                  
+                >Step 1: identifying the user</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/2-understanding-solid"
+                   class="is-active" 
+                >Step 2: Understanding Solid</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/3-reading-data"
+                  
+                >Step 3: Reading data</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/4-data-model"
+                  
+                >Step 4: Setting up a Data Model</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/5-writing-data"
+                  
+                >Step 5: Writing data & what's next</a></li>
+            
+          </ul>
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

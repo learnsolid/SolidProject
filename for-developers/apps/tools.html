@@ -1,0 +1,476 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tools and libraries overview · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/tools" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Tools and libraries overview
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>A consolidated list of libraries, toolkits, and utilities for developing on Solid.</p>
+
+<p>To be included, items must:</p>
+<ul>
+  <li>be relevant</li>
+  <li>be open-source</li>
+  <li>be in a healthy and well-maintained state</li>
+</ul>
+
+<p>If you develop a tool that could be advertised for here, please <a href="mailto:contact@solidproject.org">contact us</a>.</p>
+
+<h1 id="solid-specific-libraries">Solid-specific libraries</h1>
+
+<h2 id="javascript">JavaScript</h2>
+
+<p>Note that several of these will use Solid authentication from solid-auth-client if present.
+See also <a href="https://github.com/inrupt/solid-lib-comparison">solid-lib-comparison</a> for a handy comparison between three commonly used data access libraries.</p>
+
+<h3 id="authentication-and-file-access">Authentication and file access</h3>
+<ul>
+  <li><a href="https://github.com/solid/solid-auth-client">Solid auth client</a>: A browser library for reading and writing to Solid pods - by <a href="https://ruben.verborgh.org/">Ruben Verborgh</a></li>
+  <li><a href="https://github.com/solid/solid-cli">Solid CLI</a>: A utility to facilitate command-line interaction with Solid servers - by <a href="https://ruben.verborgh.org/">Ruben Verborgh</a></li>
+  <li><a href="https://github.com/jeff-zucker/solid-auth-cli">Solid Auth CLI</a>: A node/command-line Solid client with persistent login - by <a href="https://github.com/jeff-zucker/">Jeff Zucker</a></li>
+  <li><a href="https://github.com/jeff-zucker/solid-file-client">Solid File Client</a>: Create and manage files and folders in Solid Pods - by <a href="https://github.com/jeff-zucker/">Jeff Zucker</a></li>
+  <li><a href="https://github.com/jeff-zucker/solid-rest">Solid-Rest</a>: Treat any storage backend as a minimal Solid server - by <a href="https://github.com/jeff-zucker/">Jeff Zucker</a></li>
+  <li><a href="https://github.com/otto-aa/solid-local-pod-manager">Solid-Local-Pod-Manager</a>: Serve parts of your file system as local solid pods - by <a href="https://github.com/otto-aa">Otto-AA</a></li>
+  <li><a href="https://bourgeoa.solid.community/public/solid-file-widget/">Solid authorization Widget</a>component for webapp <a href="https://github.com/bourgeoa/solid-file-widget">Source code</a> <a href="https://github.com/bourgeoa/solid-file-widget/blob/master/LICENSE">MIT License Copyright (c) 2019</a> <a href="https://github.com/bourgeoa">Bourgeoa</a></li>
+  <li><a href="https://bourgeoa.solid.community/public/solid-file-widget/">Solid File Widget</a> widget authorisation. <a href="https://github.com/bourgeoa/solid-file-widget">Source code</a> <a href="https://github.com/bourgeoa/solid-file-widget/blob/master/LICENSE">MIT License Copyright (c) 2019</a> <a href="https://github.com/bourgeoa">Alain Bourgeois</a></li>
+</ul>
+
+<h3 id="manipulating-data">Manipulating data</h3>
+
+<ul>
+  <li><a href="https://github.com/solid/query-ldflex">LDflex for Solid</a>: Simple access to data in Solid pods through LDflex expressions - by <a href="https://ruben.verborgh.org/">Ruben Verborgh</a></li>
+  <li><a href="https://github.com/rubensworks/graphql-ld-comunica-solid.js">GraphQL-LD for Solid</a>: A GraphQL-LD engine with Solid authentication - by <a href="https://www.rubensworks.net/">Ruben Taelman</a></li>
+  <li><a href="https://github.com/jeff-zucker/rdf-easy">RDF-Easy</a>: easy JavaScript access to RDF from Solid pods - by <a href="https://github.com/jeff-zucker/">Jeff Zucker</a></li>
+  <li><a href="https://github.com/NoelDeMartin/soukai-solid">Soukai-solid</a>: A <a href="https://soukai.js.org/">Soukai ODM</a> extension adapting Solid to the engine - by <a href="https://github.com/NoelDeMartin">Noel De Martin</a></li>
+</ul>
+
+<h3 id="managing-access-control">Managing access control</h3>
+
+<ul>
+  <li><a href="https://github.com/solid/acl-check">acl-check</a></li>
+</ul>
+
+<h3 id="build-interfaces">Build interfaces</h3>
+
+<ul>
+  <li><a href="https://github.com/solid/mashlib">Mashlib</a>, for data mashup</li>
+  <li><a href="https://github.com/solid/solid-ui">Solid UI</a>, and the associated <a href="https://github.com/solid/solid-panes">Solid panes</a></li>
+</ul>
+
+<h3 id="react-components">React components</h3>
+<ul>
+  <li><a href="https://github.com/solid/react-components">Solid React Components</a>: Basic React components for building your own Solid components and apps - by <a href="https://ruben.verborgh.org/">Ruben Verborgh</a></li>
+  <li><a href="https://github.com/inrupt/solid-react-sdk">Solid React SDK</a>: Libraries, components, documentation, best practices, and an application generator to accelerate development of high-quality Solid applications - by <a href="https://www.inrupt.com">inrupt</a></li>
+  <li><a href="https://github.com/rubensworks/solid-react-graphql-ld.js">GraphQL-LD Solid React Components</a>: A GraphQL-LD engine with Solid authentication - by <a href="https://www.rubensworks.net/">Ruben Taelman</a></li>
+</ul>
+
+<h3 id="angular-sdk">Angular SDK</h3>
+<ul>
+  <li><a href="https://github.com/inrupt/generator-solid-angular">Solid Angular SDK</a></li>
+</ul>
+
+<h3 id="websocket">WebSocket</h3>
+
+<ul>
+  <li><a href="https://github.com/solid/node-solid-ws">node-solid-ws</a></li>
+</ul>
+
+<h2 id="deprecated-libraries">Deprecated libraries</h2>
+<ul>
+  <li><a href="https://github.com/solid/solid-client">Solid-client</a></li>
+</ul>
+
+<h1 id="rdf-manipulation-and-querying-libraries">RDF manipulation and querying libraries</h1>
+
+<h2 id="javascript-1">JavaScript</h2>
+
+<ul>
+  <li><a href="https://vincenttunru.gitlab.io/tripledoc/">Tripledoc</a>: A library for easy manipulation on RDF</li>
+  <li><a href="https://github.com/linkeddata/rdflib.js/">rdflib</a>: A library for advanced manipulation of RDF</li>
+  <li><a href="https://ldflex.github.io/LDflex/">LDflex</a>: A library for making RDF querying easy</li>
+  <li><a href="https://github.com/rdf-ext/rdf-ext">rdf-ext</a>: An implementation of RDFJS specifications</li>
+  <li><a href="https://github.com/jeff-zucker/sparql-fiddle">SPARQL Fiddle</a>: A JavaScript SPARQL API - by <a href="https://github.com/jeff-zucker/">Jeff Zucker</a></li>
+  <li><a href="https://github.com/comunica/comunica">Comunica</a>: A highly modular and flexible meta query engine for the Web - by <a href="https://www.rubensworks.net/">Ruben Taelman</a></li>
+</ul>
+
+<h2 id="python">Python</h2>
+
+<ul>
+  <li><a href="https://rdflib.readthedocs.io/en/stable/">rdflib</a></li>
+</ul>
+
+<h2 id="java">Java</h2>
+
+<ul>
+  <li><a href="https://jena.apache.org/">Apache Jena</a></li>
+  <li><a href="https://rdf4j.eclipse.org/">Eclipse RDF4J</a></li>
+</ul>
+
+<h2 id="php">PHP</h2>
+
+<ul>
+  <li><a href="http://www.easyrdf.org/">EasyRDF</a></li>
+</ul>
+
+<h1 id="rdf-tools">RDF tools</h1>
+
+<ul>
+  <li><a href="http://www.easyrdf.org/converter">EasyRDF converter</a>: Convert RDF from a syntax to another</li>
+  <li><a href="http://prefix.cc">prefix.cc</a>: Dereference prefixes into their full domain name</li>
+  <li><a href="https://protege.stanford.edu">Protégé</a>: An ontology editor</li>
+</ul>
+
+<h1 id="identity-management-libraries">Identity management libraries</h1>
+
+<h2 id="javascript-2">JavaScript</h2>
+<ul>
+  <li><a href="https://github.com/linkeddata/node-webid">Node-WebID</a>: A node module to verify and create WebIDs</li>
+  <li><a href="https://github.com/solid/keychain">Keychain</a>: for use with Web Cryptography API in Node.js</li>
+  <li><a href="https://github.com/solid/oidc-rs">OIDC resource server auth</a></li>
+  <li><a href="https://github.com/solid/oidc-web">OIDC auth client for Web browsers</a></li>
+  <li><a href="https://github.com/solid/oidc-rp">OIDC relying party</a></li>
+  <li><a href="https://github.com/solid/oidc-op">OIDC provider</a></li>
+  <li><a href="https://github.com/solid/oidc-auth-manager">OIDC decentralized auth manager</a></li>
+</ul>
+
+<!-- 
+Libraries we want to keep track of, but are not completely up-to-date
+
+- solid/jose
+
+Deprecated/not maintainted: 
+- solid/solid-auth-oidc
+- solid/solid-auth-tls
+- https://github.com/solid/solid-multi-rp-client
+- https://github.com/solid/solid-permissions
+- https://github.com/solid/solid-tpf
+- https://github.com/solid/solid-web-client
+- https://github.com/solid/wac-allow
+-->
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

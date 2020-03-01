@@ -1,0 +1,519 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Code with your vocabulary · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/code/quickstart" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Code with your vocabulary
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>In this part of the tutorial, we will build on the <a href="https://solidproject.org/assets/misc/tutorials/quickstart-obelisk.ttl">quickstart version</a> of the Obelisk vocabulary to develop a simple JavaScript application that answers the question: “Is this person an obelisk sculptor ?”</p>
+
+<h2 id="the-artifact-generator">The artifact generator</h2>
+
+<p>The last thing we want developers to do is memorize and type IRIs all over their code. That’s why some libraries (such as <code class="highlighter-rouge">rdf-namespaces</code>) define constants giving easy access to the terms from common vocabularies:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">rdf</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rdf-namespaces</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// The value of iri will be http://www.w3.org/1999/02/22-rdf-syntax-ns#type.</span>
+<span class="kd">const</span> <span class="nx">iri</span> <span class="o">=</span> <span class="nx">rdf</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+</code></pre></div></div>
+<p>However, an issue with these libraries is that, by their nature, they are limited to just the common, well-known vocabularies. What about your specific vocabulary, designed for your app? How can you make the terms described in that vocabulary easily reusable in your code (and easily reusable in the code of others who may wish to reuse the terms you’ve defined in your cool vocabulary)?</p>
+
+<p>The LIT artifact generator (which will be made publicly available soon) is a tool that takes any RDF vocabulary as input and automatically generates a nice source-code bundle (i.e. an artifact such as a Java JAR, or a JavaScript NPM module) that you can then easily use in your application. Let’s see how it works.</p>
+
+<h3 id="generate-the-artifact">Generate the artifact</h3>
+
+<p>To generate a JavaScript artifact with the default options, you can use the following command:</p>
+<ul>
+  <li><code class="highlighter-rouge">lit-artifact-generator --inputResources https://solidproject.org/assets/misc/tutorials/quickstart-obelisk.ttl --outputDirectory /path/to/a/directory --noprompt</code>.</li>
+</ul>
+
+<p>You can specify a local vocabulary file rather than an IRI if your vocabulary is not yet available online.</p>
+
+<h3 id="use-the-artifact">Use the artifact</h3>
+
+<p>In your application (TODO: provide git repo with demo app), simply <code class="highlighter-rouge">require</code> the generated output, and use your vocabulary terms directly:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">OBELISK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">/path/to/generated/artifact/OBELISK</span><span class="dl">"</span><span class="p">)</span>
+
+<span class="c1">// The value of sculptorIri will be http://w3id.org/obelisk/Sculptor</span>
+<span class="kd">const</span> <span class="nx">sculptorIri</span> <span class="o">=</span> <span class="nx">OBELISK</span><span class="p">.</span><span class="nx">Sculptor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="c1">// The value of sculptorDefaultLabel will be Sculptor</span>
+<span class="kd">const</span> <span class="nx">sculptorDefaultLabel</span> <span class="o">=</span> <span class="nx">OBELISK</span><span class="p">.</span><span class="nx">Sculptor</span><span class="p">.</span><span class="nx">labelInLang</span><span class="p">()</span>
+</code></pre></div></div>
+<p>If you use an IDE, at this point you have auto-completion on all the terms of your vocabulary.</p>
+
+<p>From there, we can build a simple app that tells you, based on a person’s WebID, if that person is an obelisk sculptor or not. Note that the generated artifact is:</p>
+<ul>
+  <li>imported on line 1,</li>
+  <li>used on line 16 to get an IRI (<code class="highlighter-rouge">OBELISK.Sculptor.value</code>),</li>
+  <li>used on line 20 to get a label (<code class="highlighter-rouge">OBELISK.Sculptor.labelInLang()</code>).</li>
+</ul>
+
+<iframe src="https://codesandbox.io/embed/lit-using-generated-artifact-8vfyf?fontsize=14" title="lit-using-generated-artifact" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<p>If you want to be recognised as an obelisk sculptor, you can uncomment line 35. You will have to add this app to your authorized apps to be able to write into your Pod.</p>
+
+<p>Congratulations, you are now familiar with what’s in a vocabulary, and saw how to code using one.</p>
+
+<p>Next step: find out the <a href="/for-developers/apps/vocabularies/well-known">well-known vocabularies</a></p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/quickstart"
+                            
+                          >How to create your own vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/quickstart"
+                            
+                          >Publish your vocabulary on your Pod</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/use/quickstart"
+                            
+                          >Describe data</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/code/quickstart"
+                             class="is-active" 
+                          >Code with your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

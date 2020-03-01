@@ -1,0 +1,565 @@
+<!doctype html>
+<html>
+  <head>
+    <title>NeOn, a vocabulary creation methodology · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/create/methodology" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              NeOn, a vocabulary creation methodology
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <h3 id="the-neon-methodology">The NeOn methodology</h3>
+
+<p>NeOn is a reference method for building <strong>ontology networks</strong>, that is to say inter-related vocabularies. NeOn proposes different scenarios, to enable reusing existing resources (both ontological and non-ontological, i.e. data models that are not vocabularies) or building the vocabulary from scratch. The detail of these scenarios is provided in the <a href="https://pdfs.semanticscholar.org/3d34/d26ddc2024b80c3296a8552e160d973cd9a2.pdf">referenced publication</a>, but we will give thereafter an overview of the “build-from-scratch” scenario.</p>
+
+<h4 id="requirements-specification">Requirements specification</h4>
+
+<p>Requirements for a vocabulary include its purpose and scope (what is the covered domain), the target and intended use (who will typically use this vocabulary, and in what kind of applications), and finally a set of <strong>competency questions</strong>. Competency questions are basically requirements expressed as questions that you should be able to answer using your vocabulary. Try to find questions covering the complete scope of your vocabulary. If the scope is wide, you might also want to group questions in order to help modularizing. In order to help you build the vocabulary, you can provide a “typical answer” to each question.</p>
+
+<p>You should end up with a set of requirements that covers your complete scope, that is consistent (no contradiction), that is non-ambiguous, and that is understandable (try having someone else read your questions/answers, and see if it makes sense to them).</p>
+
+<p>Let’s apply NeOn to our comic book example:</p>
+<ul>
+  <li><strong>Purpose</strong>: I want to be able to describe the webcomics that I follow</li>
+  <li><strong>Scope</strong>: This vocabulary will describe any type of comic posted periodically on the web. Printed comics (as well as their web previews) are out of scope: we only focus on purely web comics.</li>
+  <li><strong>Target</strong>: Webcomic lovers</li>
+  <li><strong>Intended use</strong>: This vocabulary is intended to be used in applications helping you keep up with all your webcomics (there are som many of them)</li>
+  <li><strong>Competency questions</strong>:
+    <ul>
+      <li>Related to <strong>Topic</strong>:
+        <ul>
+          <li>Q: What are the webcomics that I follow and that talk about “romance, sarcasm, math, and language” ? A: XKCD</li>
+          <li>Q: What are the topics of existing webcomics: nationality, romance, technology</li>
+        </ul>
+      </li>
+      <li>Related to <strong>Release</strong>:
+        <ul>
+          <li>Q: What are the webcomics that are published daily ? A: Sinfest, Dilbert</li>
+          <li>Q: What are the webcomics that I follow that have an RSS or an Atom feed, and what is this feed ? A: XKCD, https://xkcd.com/atom.xml</li>
+          <li>Q: Are there publications in the feeds of the comics I follow that I haven’t read ? A: Yes, https://satwcomic.com/i-guess</li>
+        </ul>
+      </li>
+      <li>…</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="ontology-specification">Ontology specification</h4>
+
+<p>Once you are happy with your requirements, you can begin specifying the ontology. At this point, you should have a whole bunch of terms from your questions and answers that can describe the concepts you want to put in your vocabulary. You can organize these terms into:</p>
+<ul>
+  <li><strong>Classes</strong></li>
+  <li><strong>Properties</strong></li>
+  <li><strong>Individuals</strong></li>
+</ul>
+
+<p>For instance, we could say that, based on the competency questions of our webcomic vocabulary, we identify:</p>
+<ul>
+  <li><strong>Classes</strong>: Webcomic, Topic, Person, Feed</li>
+  <li><strong>Properties</strong>: follows, has topic, has release frequency, has feed</li>
+  <li><strong>Individuals</strong>:
+    <ul>
+      <li>Persons: I (identified by my webid),</li>
+      <li>Webcomics: XKCD, Sinfest, Dilbert…</li>
+      <li>Topics: Nationality, Romance, Technology…</li>
+    </ul>
+  </li>
+</ul>
+
+<p>At this point, your vocabulary is basically a graph, with bubbles connected by arrows. Keep this schema somewhere, it’s a nice touch to the documentation.</p>
+
+<p><img src="/assets/img/tutorials/vocabularies/webcomic-vocab.svg" alt="The webcomic vocabulary" /></p>
+
+<h4 id="ontology-implementation">Ontology implementation</h4>
+
+<p>At some point, you will be happy with your vocabulary as a drawing, but in this form it cannot be used by applications. To this end, it must be <strong>implemented into RDF</strong>. To do so, you can use <a href="https://protege.stanford.edu/">Protégé</a>, a tool that will help you implement your vocabulary through a GUI, without having to write the RDF directly.</p>
+
+<p>Next step, <a href="/for-developers/apps/vocabularies/publish">publish your vocabulary</a>!</p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create"
+                            
+                          >Create your own vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/best-practices"
+                            
+                          >Vocabulary building best practices</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/extended"
+                            
+                          >Improve your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/methodology"
+                             class="is-active" 
+                          >NeOn, a vocabulary creation methodology</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/use/extended"
+                            
+                          >Describe data for Solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish"
+                            
+                          >Publish your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/rdf"
+                            
+                          >Publish your vocabulary as RDF</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/artifacts"
+                            
+                          >Publish your vocabulary as code artifacts</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

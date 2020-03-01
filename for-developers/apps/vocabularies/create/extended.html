@@ -1,0 +1,848 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Improve your vocabulary · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/create/extended" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Improve your vocabulary
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>This tutorial extends the <a href="/for-developers/apps/vocabularies/create/quickstart">quickstart vocabulary creation</a>, so make sure to complete it first. Just as a reminder, here is a graphical representation of the terms we want to include in our vocabs:</p>
+
+<p><img src="/assets/img/tutorials/vocabularies/obelisk_vocab_1.png" alt="The obelisk vocabulary" /></p>
+
+<h2 id="refining-properties">Refining properties</h2>
+
+<p>We initially defined our properties as <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property">rdf:Property</a>. However, we can see in the graphical representation that there are two different kind of properties:</p>
+<ul>
+  <li>the ones that connect a bubble to another,</li>
+  <li>the one that connects a bubble to a literal value (i.e. a string, a number, a date, etc).</li>
+</ul>
+
+<p>The properties of things in RDF are called properties (how convenient). Therefore, following what we did for Classes, we might write:</p>
+<ul>
+  <li><a href="http://w3id.org/obelisk/ownedBy">obelisk:ownedBy</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">is a</a> <a href="???">property</a>.</li>
+  <li><a href="http://w3id.org/obelisk/builtBy">obelisk:builtBy</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">is a</a> <a href="???">property</a>.</li>
+  <li><a href="http://w3id.org/obelisk/height">obelisk:height</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">is a</a> <a href="???">property</a>.</li>
+</ul>
+
+<p>We already know that <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">is a</a> is identified by the IRI <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</a>, so we can now go ahead and change that into:</p>
+<ul>
+  <li><a href="http://w3id.org/obelisk/ownedBy">obelisk:ownedBy</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</a> <a href="???">property</a>.</li>
+  <li><a href="http://w3id.org/obelisk/builtBy">obelisk:builtBy</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</a> <a href="???">property</a>.</li>
+  <li><a href="http://w3id.org/obelisk/height">obelisk:height</a> <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</a> <a href="???">property</a>.</li>
+</ul>
+
+<p>However, as we can see on the graphical representation we made earlier, there are two kind of properties: the ones connecting things (i.e. bubbles) together, and the ones attaching a ‘value’ to a thing. These are actually two different Classes of properties: the former are called <a href="http://www.w3.org/2002/07/owl#ObjectProperty">owl:ObjectProperty</a>, and the latter <a href="http://www.w3.org/2002/07/owl#DataProperty">owl:DataProperty</a>.</p>
+
+<p>Which leads to our vocabulary looking like this:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Person</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">height</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="connecting-to-other-vocabularies">Connecting to other vocabularies</h3>
+
+<p>Terms in vocabularies are identified by IRI, and it’s not for decoration: it means that you can use the identifiers across the entire Web. The cool thing about that is that it makes it really easy to reuse terms from remote vocabularies in your own vocabularies. For instance, <a href="http://w3id.org/obelisk/Obelisk"><code class="highlighter-rouge">obelisk:Obelisk</code></a> is quite a specific term, so it makes perfect sense to define it ourselves. What about <a href="http://w3id.org/obelisk/Person"><code class="highlighter-rouge">obelisk:Person</code></a> ? Maybe there is a reference vocabulary out there that defines the concept of person… And if you pay a quick visit to <a href="/for-developers/apps/vocabularies/well-known">our list of well-known vocabularies</a>, you will see that indeed there is! For instance, <a href="http://xmlns.com/foaf/0.1/">Friend of a Friend</a> (foaf for short) defines the term <a href="http://xmlns.com/foaf/0.1/Person">foaf:Person</a>, and it would make our vocabulary easier to integrate into any application if we just reused this term instead of defining our own. Therefore, our vocabulary could look more something like this:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Now using the foaf:Person class</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">height</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">xsd:</span><span class="n">float</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Moreover, sculptors are people too! Therefore the class we define, and that is specific to our vocabulary, is a specialization of a class defined elsewhere. Saying so is actually very easy, with the <a href="http://www.w3.org/2000/01/rdf-schema#subClassOf">rdfs:subClassOf</a> property:</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># We say that a obelisk:Sculptor is a specific type of foaf:Person</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">subClassOf</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">height</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">xsd:</span><span class="n">float</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="adding-human-readability">Adding human readability</h2>
+
+<h3 id="adding-multilingual-support">Adding multilingual support</h3>
+
+<p>So far all our labels and comments are written in English, yet there is no explicit indication of that in the vocabulary. To do so, RDF uses the concept of <strong>language tag</strong>: after a string, you can add a tag (e.g. <code class="highlighter-rouge">@en</code> for English, or <code class="highlighter-rouge">@es</code> for Spanish) to stipulate its language.</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Sculptor"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An artist who sculpts obelisks."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">subClassOf</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"owned by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who owns it, which is typically the person who ordered it, or to whom it was offered."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"built by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who built it."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">heigth</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"heigth"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"The distance from the ground to the highest point of the obelisk, in meters."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">xsd:</span><span class="n">float</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And why stop there? <a href="https://cleopatra.solid.community/profile/card#me">Cleopatra</a> and <a href="https://jcaesar.solid.community/profile/card#me">Caesar</a> want their vocabulary to be reused throughout the entire Roman empire, so they decide to also provide Italian translations for their labels and comments.</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisco"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un obelisco è un pilastro a quattro lati con una cima a forma di piramide."</span><span class="na">@it</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Sculptor"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Scultore"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An artist who sculpts obelisks."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un artista che scolpisce obelischi."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">subClassOf</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"owned by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"posseduto da"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who owns it, which is typically the person who ordered it, or to whom it was offered."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relazione tra un obelisco e la persona che lo possiede, che in genere è la persona che lo ha ordinato o a chi è stato offerto."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"built by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"costruito da"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who built it."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relazione tra un obelisco e la persona che l'ha costruito."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">heigth</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"heigth"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"altezza"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"The distance from the ground to the highest point of the obelisk, in meters."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"La distanza dal suolo al punto più alto dell'obelisco, in metri."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">xsd:</span><span class="n">float</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="adding-some-metadata">Adding some metadata</h2>
+
+<p>The finishing touch to this vocabulary is to add some metadata, so that people who find it will have a global description before going through its details. We already decided that the IRI of the vocabulary would be <code class="highlighter-rouge">http://w3id.org/obelisk/</code>, so this is the identifier we are going to use in RDF to say stuff about the vocabulary. In Linked Data terminology a vocabulary is called an <a href="http://www.w3.org/2002/07/owl#Ontology"><code class="highlighter-rouge">owl:Ontology</code></a>, so the first thing to say is:</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="c1"># `obelisk:` is equivalent to http://w3id.org/obelisk/</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="c1"># The remainder of the vocabulary is unchanged</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisco"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un obelisco è un pilastro a quattro lati con una cima a forma di piramide."</span><span class="na">@it</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="c1"># ...</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="adding-some-description">Adding some description</h3>
+
+<p>Much like we described each term with human-friendly labels and comments, we can add a title (<a href="http://purl.org/dc/terms/title"><code class="highlighter-rouge">dcterms:title</code></a>) and a description (<a href="http://purl.org/dc/terms/description"><code class="highlighter-rouge">dcterms:description</code></a>) to our vocabulary. To make it easier to reuse, we can also indicate a preferred prefix (<a href="http://purl.org/vocab/vann/preferredNamespacePrefix"><code class="highlighter-rouge">vann:preferredNamespacePrefix</code></a>) and a preferred IRI (<a href="http://purl.org/vocab/vann/preferredNamespaceUri"><code class="highlighter-rouge">vann:preferredNamespaceUri</code></a>) (since multiple IRIs may point to the same vocabulary).</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dcterms:</span><span class="w"> </span><span class="nl">&lt;http://purl.org/dc/terms/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">title</span><span class="w"> </span><span class="s">"Obelisk ontology"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># The description can be a multi-line text</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">description</span><span class="w"> </span><span class="s">"""
+    The obelisk ontology aims at describing obelisks.
+    """</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespacePrefix</span><span class="w"> </span><span class="s">"obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespaceUri</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="c1"># The remainder of the vocabulary is unchanged</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisco"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un obelisco è un pilastro a quattro lati con una cima a forma di piramide."</span><span class="na">@it</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="c1"># ...</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="give-to-caesar-what-is-caesars">Give to Caesar what is Caesar’s</h3>
+
+<p>It is good practice to give ownership information about the vocabulary:</p>
+<ul>
+  <li>who created it (<a href="http://purl.org/dc/terms/creator"><code class="highlighter-rouge">dcterms:creator</code></a>),</li>
+  <li>who contributed to it (<a href="http://purl.org/dc/terms/contributor"><code class="highlighter-rouge">dcterms:contributor</code></a>),</li>
+  <li>who publishes it (<a href="http://purl.org/dc/terms/publisher"><code class="highlighter-rouge">dcterms:publisher</code></a>),</li>
+  <li>under what license it is distributed (<a href="http://purl.org/dc/terms/license"><code class="highlighter-rouge">dcterms:license</code></a>)</li>
+</ul>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dcterms:</span><span class="w"> </span><span class="nl">&lt;http://purl.org/dc/terms/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">title</span><span class="w"> </span><span class="s">"Obelisk ontology"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">description</span><span class="w"> </span><span class="s">"""
+    The obelisk ontology aims at describing obelisks.
+    """</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespacePrefix</span><span class="w"> </span><span class="s">"obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespaceUri</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Ownership information</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">license</span><span class="w"> </span><span class="nl">&lt;http://creativecommons.org/licenses/by/4.0/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Note that people are identified by their webid</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">creator</span><span class="w"> </span><span class="nl">&lt;https://cleopatra.solid.community/profile/card#me&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">contributor</span><span class="w"> </span><span class="nl">&lt;https://jcaesar.solid.community/profile/card#me&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Here, the publisher is not a person, but an institution</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">publisher</span><span class="w"> </span><span class="nl">&lt;https://jcaesar.solid.community/profile/organizations/spqr.ttl#spqr&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="c1"># The remainder of the vocabulary is unchanged</span><span class="w">
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisco"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un obelisco è un pilastro a quattro lati con una cima a forma di piramide."</span><span class="na">@it</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="c1"># ...</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="versioning-the-vocabulary">Versioning the vocabulary</h3>
+
+<p>A vocabulary may change over time, and so it is helpful to also provide some explicit version information. Details about versioning a vocabulary are given later in the <a href="/for-developers/apps/vocabularies/publish">vocabulary publication tutorial</a>, but we can add some basic information here, e.g.:</p>
+<ul>
+  <li>a version number (<a href="http://www.w3.org/2002/07/owl#versionInfo"><code class="highlighter-rouge">owl:versionInfo</code></a>)</li>
+  <li>an initial publication date (<a href="http://purl.org/dc/terms/issued"><code class="highlighter-rouge">dcterms:issued</code></a>)</li>
+  <li>a version release date (<a href="http://purl.org/dc/terms/modified"><code class="highlighter-rouge">dcterms:modified</code></a>)</li>
+</ul>
+
+<p>This last modification yields a vocabulary in good shape to be used to describe our data:</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">vann:</span><span class="w"> </span><span class="nl">&lt;http://purl.org/vocab/vann/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dcterms:</span><span class="w"> </span><span class="nl">&lt;http://purl.org/dc/terms/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/0.1/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Description</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">title</span><span class="w"> </span><span class="s">"Obelisk ontology"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">description</span><span class="w"> </span><span class="s">"""
+    The obelisk ontology aims at describing obelisks.
+    """</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespacePrefix</span><span class="w"> </span><span class="s">"obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">vann:</span><span class="n">preferredNamespaceUri</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Ownership</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">license</span><span class="w"> </span><span class="nl">&lt;http://creativecommons.org/licenses/by/4.0/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">creator</span><span class="w"> </span><span class="nl">&lt;https://cleopatra.solid.community/profile/card#me&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">contributor</span><span class="w"> </span><span class="nl">&lt;https://jcaesar.solid.community/profile/card#me&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">publisher</span><span class="w"> </span><span class="nl">&lt;https://jcaesar.solid.community/profile/organizations/spqr.ttl#spqr&gt;</span><span class="p">;</span><span class="w">
+    </span><span class="c1"># Version</span><span class="w">
+    </span><span class="nn">owl:</span><span class="n">versionInfo</span><span class="w"> </span><span class="s">"0.1.0"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">issued</span><span class="w"> </span><span class="s">"52BC-01-01"</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">dcterms:</span><span class="n">modified</span><span class="w"> </span><span class="s">"2019-10-09"</span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisco"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un obelisco è un pilastro a quattro lati con una cima a forma di piramide."</span><span class="na">@it</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Sculptor"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Scultore"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An artist who sculpts obelisks."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Un artista che scolpisce obelischi."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">subClassOf</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"owned by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"posseduto da"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who owns it, which is typically the person who ordered it, or to whom it was offered."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relazione tra un obelisco e la persona che lo possiede, che in genere è la persona che lo ha ordinato o a chi è stato offerto."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">foaf:</span><span class="n">Person</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">builtBy</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">ObjectProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"built by"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"costruito da"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who built it."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relazione tra un obelisco e la persona che l'ha costruito."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="p">.</span><span class="w">
+
+</span><span class="nn">obelisk:</span><span class="n">heigth</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">owl:</span><span class="n">DataProperty</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"heigth"</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"altezza"</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"The distance from the ground to the highest point of the obelisk, in meters."</span><span class="na">@en</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"La distanza dal suolo al punto più alto dell'obelisco, in metri."</span><span class="na">@it</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">domain</span><span class="w"> </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">range</span><span class="w"> </span><span class="nn">xsd:</span><span class="n">float</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+<p>A reference version of this final vocabulary is available <a href="/assets/misc/tutorials/quickstart-obelisk.ttl">here</a>.</p>
+
+<p>You can now use this vocabulary to <a href="/for-developers/apps/vocabularies/use/extended">describe data for Solid</a>. If you want a more advanced tutorial to create vocabularies, you can learn about <a href="/for-developers/apps/vocabularies/create/methodology">the NeOn methodology</a>.</p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create"
+                            
+                          >Create your own vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/best-practices"
+                            
+                          >Vocabulary building best practices</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/extended"
+                             class="is-active" 
+                          >Improve your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/methodology"
+                            
+                          >NeOn, a vocabulary creation methodology</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/use/extended"
+                            
+                          >Describe data for Solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish"
+                            
+                          >Publish your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/rdf"
+                            
+                          >Publish your vocabulary as RDF</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/artifacts"
+                            
+                          >Publish your vocabulary as code artifacts</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>
