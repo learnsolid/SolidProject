@@ -1,0 +1,540 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Step 4: Setting up a Data Model · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/first-app/4-data-model" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Step 4: Setting up a Data Model
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/900cbbb2c4b7fadef8aa5969a11d8816b37b00b7">This step as a Git commit.</a>)</p>
+
+<p>Now it’s time to start working on some actual functionality: we’ll be making an app that allows
+people to keep notes. In this step, we’ll prepare their Pod for our data model — much as you
+might prepare database tables in a traditional application with a relational back-end.</p>
+
+<p>At a high level, we’ll set up the data model as follows:</p>
+
+<ol>
+  <li>Check if a Document tracking our notes already exists.</li>
+  <li>If it doesn’t exist, create it.</li>
+  <li>Fetch that Document.</li>
+</ol>
+
+<p>So to start with the first step: in which Document should we track notes? The answer can be found in
+the concept of the <em>Public Type Index</em>.</p>
+
+<p>The Public Type Index is itself a publicly accessible Document stored in the user’s Pod. This
+Document contains a list of links to other Documents, along with the type of data that is to be
+included in those Documents. To store notes, the data type we will use is the
+<a href="http://schema.org/TextDigitalDocument"><code class="highlighter-rouge">TextDigitalDocument</code></a>, defined by
+<a href="http://schema.org/">Schema.org</a>. Every time the user saves a note, we will store it as a
+TextDigitalDocument.</p>
+
+<p>If the Document containing these notes was located in the user’s Pod at <code class="highlighter-rouge">/public/notes.ttl</code>, their
+Public Type Index could refer to it like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">#notes</code></td>
+      <td><code class="highlighter-rouge">rdf:type</code></td>
+      <td><code class="highlighter-rouge">solid:TypeRegistration</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#notes</code></td>
+      <td><code class="highlighter-rouge">solid:forClass</code></td>
+      <td><code class="highlighter-rouge">schema:TextDigitalDocument</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">#notes</code></td>
+      <td><code class="highlighter-rouge">solid:instance</code></td>
+      <td><code class="highlighter-rouge">/public/notes.ttl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The above Type Index includes one Type Registration, identified by <code class="highlighter-rouge">#notes</code>, that registers
+<code class="highlighter-rouge">/public/notes.ttl</code> for the data type <code class="highlighter-rouge">schema:TextDigitalDocument</code>.</p>
+
+<p>So how do we find the user’s Public Type Index? It’s usually listed in their profile, i.e. the
+Document accessible at their WebID:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">#me</code></td>
+      <td><code class="highlighter-rouge">solid:publicTypeIndex</code></td>
+      <td><code class="highlighter-rouge">/settings/publicTypeIndex.ttl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is a pattern you’ll often encounter when writing Solid apps: you start with the user’s WebID,
+read the profile Document located there, and from there you can find the data you need.</p>
+
+<p>So let’s see what this looks like in code:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">fetchDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">tripledoc</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">solid</span><span class="p">,</span> <span class="nx">schema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rdf-namespaces</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">getNotesList</span><span class="p">(</span><span class="nx">profile</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/* 1. Check if a Document tracking our notes already exists. */</span>
+  <span class="kd">const</span> <span class="nx">publicTypeIndexRef</span> <span class="o">=</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">getRef</span><span class="p">(</span><span class="nx">solid</span><span class="p">.</span><span class="nx">publicTypeIndex</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">publicTypeIndex</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetchDocument</span><span class="p">(</span><span class="nx">publicTypeIndexRef</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">notesListEntry</span> <span class="o">=</span> <span class="nx">publicTypeIndex</span><span class="p">.</span><span class="nx">findSubject</span><span class="p">(</span><span class="nx">solid</span><span class="p">.</span><span class="nx">forClass</span><span class="p">,</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">TextDigitalDocument</span><span class="p">);</span>
+
+  <span class="cm">/* 2. If it doesn't exist, create it. */</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">notesListEntry</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// We will define this function later:</span>
+    <span class="k">return</span> <span class="nx">initialiseNotesList</span><span class="p">(</span><span class="nx">profile</span><span class="p">,</span> <span class="nx">publicTypeIndex</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="cm">/* 3. If it does exist, fetch that Document. */</span>
+  <span class="kd">const</span> <span class="nx">notesListRef</span> <span class="o">=</span> <span class="nx">notesListEntry</span><span class="p">.</span><span class="nx">getRef</span><span class="p">(</span><span class="nx">solid</span><span class="p">.</span><span class="nx">instance</span><span class="p">);</span>
+  <span class="k">return</span> <span class="k">await</span> <span class="nx">fetchDocument</span><span class="p">(</span><span class="nx">notesListRef</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><span class="codesandbox-button-wrapper">
+<a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/4-data-model/?module=%2Fsrc%2Fservices%2FfetchPublicTypeIndex.ts"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
+</span></p>
+
+<p>Given the <code class="highlighter-rouge">profile</code> <a href="/for-developers/apps/first-app/3-reading-data">we fetched before</a>, we can find a reference to the public Type
+Index under <code class="highlighter-rouge">solid:publicTypeIndex</code>. Then in the public Type Index, we can find the <code class="highlighter-rouge">#notes</code> entry
+by looking for the Subject that has a Statement saying it is for the class
+<code class="highlighter-rouge">schema:TextDigitalDocument</code>.</p>
+
+<p>If that Subject is not found, we initialise a new Document to contain the notes — more on that
+later. If it <em>is</em> found, we find the URL of the Document that should contain notes under the
+<code class="highlighter-rouge">solid:instance</code> key. All we then have to do is to call <code class="highlighter-rouge">fetchDocument</code> to retrieve the Document at
+that URL.</p>
+
+<p>One thing to keep in mind, again, is that you can make no assumptions about the data in the user’s
+Pod. Thus, to be safe you should always check whether the return value of <code class="highlighter-rouge">getRef()</code> is <code class="highlighter-rouge">null</code>.
+Consider using <a href="https://www.typescriptlang.org/">TypeScript</a> to get a warning when you forget to do
+so.</p>
+
+<p>That leaves us with one loose thread: the function <code class="highlighter-rouge">initialiseNotesList()</code>, which creates a new
+Document that will contain the notes, and adds it to the Public Type Index. Let’s take a look:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">tripledoc</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">space</span><span class="p">,</span> <span class="nx">rdf</span><span class="p">,</span> <span class="nx">solid</span><span class="p">,</span> <span class="nx">schema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rdf-namespaces</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">initialiseNotesList</span><span class="p">(</span><span class="nx">profile</span><span class="p">,</span> <span class="nx">typeIndex</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the root URL of the user's Pod:</span>
+  <span class="kd">const</span> <span class="nx">storage</span> <span class="o">=</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">getRef</span><span class="p">(</span><span class="nx">space</span><span class="p">.</span><span class="nx">storage</span><span class="p">);</span>
+
+  <span class="c1">// Decide at what URL within the user's Pod the new Document should be stored:</span>
+  <span class="kd">const</span> <span class="nx">notesListRef</span> <span class="o">=</span> <span class="nx">storage</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">public/notes.ttl</span><span class="dl">'</span><span class="p">;</span>
+  <span class="c1">// Create the new Document:</span>
+  <span class="kd">const</span> <span class="nx">notesList</span> <span class="o">=</span> <span class="nx">createDocument</span><span class="p">(</span><span class="nx">notesListRef</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">notesList</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+
+  <span class="c1">// Store a reference to that Document in the public Type Index for `schema:TextDigitalDocument`:</span>
+  <span class="kd">const</span> <span class="nx">typeRegistration</span> <span class="o">=</span> <span class="nx">typeIndex</span><span class="p">.</span><span class="nx">addSubject</span><span class="p">();</span>
+  <span class="nx">typeRegistration</span><span class="p">.</span><span class="nx">addRef</span><span class="p">(</span><span class="nx">rdf</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">solid</span><span class="p">.</span><span class="nx">TypeRegistration</span><span class="p">)</span>
+  <span class="nx">typeRegistration</span><span class="p">.</span><span class="nx">addRef</span><span class="p">(</span><span class="nx">solid</span><span class="p">.</span><span class="nx">instance</span><span class="p">,</span> <span class="nx">notesList</span><span class="p">.</span><span class="nx">asRef</span><span class="p">())</span>
+  <span class="nx">typeRegistration</span><span class="p">.</span><span class="nx">addRef</span><span class="p">(</span><span class="nx">solid</span><span class="p">.</span><span class="nx">forClass</span><span class="p">,</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">TextDigitalDocument</span><span class="p">)</span>
+  <span class="k">await</span> <span class="nx">typeIndex</span><span class="p">.</span><span class="nx">save</span><span class="p">([</span> <span class="nx">typeRegistration</span> <span class="p">]);</span>
+
+  <span class="c1">// And finally, return our newly created (currently empty) notes Document:</span>
+  <span class="k">return</span> <span class="nx">notesList</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><span class="codesandbox-button-wrapper">
+<a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/4-data-model/?module=%2Fsrc%2Fservices%2FinitialiseNotesList.ts"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
+</span></p>
+
+<p>(Keep in mind that, in order to write to the user’s Pod, the user will need to have given your app
+explicit permission to write <a href="/for-developers/apps/first-app/1-authentication">when they signed in</a>.)</p>
+
+<p>If all the above looks terribly complicated: that’s because it is. <a href="https://ruben.verborgh.org/blog/2019/06/17/shaping-linked-data-apps/">Work is underway to make this
+easier in the future</a>,
+allowing you to point a library at any data model, and having the library make sure that the user’s
+Pod is automatically prepared to handle that model. For now though, you’ll have to work through
+these step-by-step instructions.</p>
+
+<p>Next: <a href="/for-developers/apps/first-app/5-writing-data">Writing data</a></p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          <!-- List all posts in the category (no subcategories) -->
+          <ul>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app"
+                  
+                >Introduction</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/1-authentication"
+                  
+                >Step 1: identifying the user</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/2-understanding-solid"
+                  
+                >Step 2: Understanding Solid</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/3-reading-data"
+                  
+                >Step 3: Reading data</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/4-data-model"
+                   class="is-active" 
+                >Step 4: Setting up a Data Model</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/first-app/5-writing-data"
+                  
+                >Step 5: Writing data & what's next</a></li>
+            
+          </ul>
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

@@ -1,0 +1,580 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vocabulary building best practices · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/vocabularies/create/best-practices" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Vocabulary building best practices
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <p>Writing a vocabulary is good, writing a good vocabulary is better. To make it easier on others (and on yourself) when using your vocabulary, here is a set of good practices that you might consider applying. There are also external resources that we recommend you read:</p>
+<ul>
+  <li>https://www.w3.org/2006/07/SWD/Vocab/principles</li>
+</ul>
+
+<h2 id="-document-your-vocabulary"><a id="documentation"></a> Document your vocabulary</h2>
+
+<p>Basically, a vocabulary is code. And what should you always do when you write code ? That’s right, write documentation !</p>
+
+<h3 id="intrinsic-documentation">“Intrinsic” documentation</h3>
+
+<h4 id="at-the-term-granularity">At the term granularity</h4>
+
+<p>There are tools within RDF to help you document your vocabulary. First, remember that an IRI should primarily be a machine-understandable identifier: it’s nice if it’s readable by humans, but it’s not its intended use. Therefore,  you should always use <code class="highlighter-rouge">rdfs:label</code> and <code class="highlighter-rouge">rdfs:comment</code> to attach human-understandable descriptions to your concepts (please refer to <a href="/for-developers/apps/vocabularies/well-known">the vocabulary documentation</a> for more information). Pro tip: you can use the requirements you defined earlier to build the comments.</p>
+
+<p>For instance:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix webco: &lt;http://w3id.org/webcomic/ns#&gt;
+
+webco:Webcomic a rdfs:Class;
+    rdfs:label "Webcomic"@en;
+    rdfs:comment "A comic periodically published online"@en.
+    rdfs:comment "Une bande dessinée publiée en ligne périodiquement."@fr
+</code></pre></div></div>
+
+<p>Note that labels and comments can be attached a <strong>language tag</strong>, making internationalization a native feature of RDF.</p>
+
+<h4 id="-at-the-vocabulary-granularity"><a id="vocab-doc"></a> At the vocabulary granularity</h4>
+
+<p>Remember: your vocabulary itself will be online, with its own identifier. Which means that you can add useful metainformation to your vocabulary… as part of the published vocabulary.</p>
+
+<p>For instance:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix cc: &lt;http://creativecommons.org/ns#&gt; .
+@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+
+&lt;http://w3id.org/webcomic/ns&gt; rdf:type owl:Ontology ;
+                               dc:description """
+The Webcomic ontology aims at describing webcomics, the things they talk about, the artists who make them and the people who read them.
+    """ ;
+                               dc:title "Webcomic ontology" ;
+                               foaf:primaryTopic "Webcomics" .
+</code></pre></div></div>
+
+<p>In the <a href="/for-developers/apps/vocabularies/publish">publication</a> tutorial, we’ll discuss in more details the important metadata to attach to your vocabulary.</p>
+
+<h2 id="human-friendly-documentation">“Human-friendly” documentation</h2>
+
+<p>Adding documentation as part of your vocabulary is a good thing, but it limits access to this documentation to people who can read RDF. Usually, this intrinsic documentation is leveraged by a tool that generates a good-looking html document capturing the information you embedded in your vocab. Here is a list of such tools:</p>
+<ul>
+  <li><a href="https://github.com/dgarijo/Widoco">Widoco</a> is the most recent one, and it was recognized a useful resource by the community in 2017. Widoco generates an HTML file using <a href="#lode">the LODE</a>, enriched with JSON-LD annotations, generates diagrams, and comes with a GUI to help you specify relevant information.</li>
+  <li><a id="lode"></a> <a href="https://essepuntato.it/lode/">LODE</a> takes your vocabulary as an input, and generates an HTML document with the classes, properties and individuals it contains, described with their labels and comments.</li>
+</ul>
+
+<h2 id="reuse-existing-ontologies">Reuse existing ontologies</h2>
+
+<p>We already mentionned that you should reuse as much existing ontologies as possible to describe the data used by your application. The same piece of advice applies when you build your own vocabulary: you can link your own terms to terms defined by other vocabularies, as we are, after all, in the world of Linked Data. You can basically, as any element (subject, predicate, object) of any triple, use a term defined in your vocabulary or in an external one.</p>
+
+<h3 id="how-to-reuse-ontologies">How to reuse ontologies</h3>
+
+<p>There are different “usual” ways to link to other vocabularies:</p>
+
+<ul>
+  <li><strong>Equivalence</strong>: You state that your term and the other represent exactly the same concept, and that logically, anything that goes for one goes for the other. For instance, we could say that <code class="highlighter-rouge">webco:Webcomic owl:sameAs schema:CreativeWork</code>. It is quite a strong statement, but it makes it possible to make plenty of deductions using a reasoner. The downside is that if you add a property to your local term, that is therefore considered applied to the other term, which can lead to contradiction when your vocabulary is reused. Let’s imagine that the Webcomic vocabulary contains the triple <code class="highlighter-rouge">webco:Webcomic owl:disjointFrom ex:Book</code> (where <code class="highlighter-rouge">ex:Book</code> is a well-known term for books).  If a book ontology importing our webcomic vocabulary states that <code class="highlighter-rouge">ex:Book rdfs:subClassOf schema:CreativeWork</code>, an inconsistency is created, because <code class="highlighter-rouge">ex:Book</code> is both a subclass of and disjoint from <code class="highlighter-rouge">schema:CreativeWork</code>. The take-away message here is that equivalence should be used wisely.</li>
+  <li><strong>Subclassing</strong>: You state that your concept is a subclass of the remote concept you want to extend. It is not as powerful as equivalence, but it also causes less trouble. In this case, we would say that <code class="highlighter-rouge">webco:Webcomic rdfs:subClassOf schema:CreativeWork</code>.</li>
+  <li><strong>Direct reuse</strong>: In this case, you do not create a new term at all in your vocabulary, and you use the remote term directly. For instance, we could say that <code class="highlighter-rouge">webco:follows rdfs:domain schema:Person</code> instead of <code class="highlighter-rouge">webco:follows rdfs:domain webco:Person</code> and <code class="highlighter-rouge">webco:Person rdfs:subClassOf schema:Person</code>. This prevents redefining existing terms, but if not done carefully, it can create the same issues as equivalence.</li>
+</ul>
+
+<p>Do as you see fit, but when in doubt subclassing is a safe option.</p>
+
+<h3 id="reusing-different-type-of-ontologies">Reusing different type of ontologies</h3>
+
+<p>Vocabularies are usually developed for a purpose, and this purpose can be of varying specificity/abstraction. They basically go on a spectrum from application-specific vocabulary only usable for one application, then reusable vocabulary that covers a specific domain (e.g. foaf to describe a person’s contact info), and finally to very generic, upper-level vocabularies. The latter define abstract concepts, shared between many application domains. These definitions are too vague to be included as-is in any application, but their purpose is rather to be broad enough in order to cover concepts from different separate domains. Therefore, two ontologies dedicated to different domains may be connected through the same upper-level ontology, easing their common reuse in an application.</p>
+
+<h2 id="-modularization"><a id="modularization"></a> Modularization</h2>
+
+<p>Vocabularies should have a focused scope and a defined, identifiable purpose. In order to achieve this, it is considered good practice to break down vocabularies that are too large and cover too wide a scope into smaller modules. This way, your application ends up resting on a network of interconnected modules, instead of on a monolithic vocabulary. It is <strong>easier to maintain</strong>, as each module has a scope which is more limited, and does not require an complete understanding of domain covered by the global vocabulary. It also helps <strong>prioritizing</strong> module development. More information about ontology modularization in <a href="https://hal.archives-ouvertes.fr/file/index/docid/710035/filename/WoMo_paper_2012_SBA_al.pdf">this paper</a></p>
+
+<h2 id="ontology-design-patterns">Ontology design patterns</h2>
+
+<p>Ontology design patterns are similar to design patterns in software engineering: they capture application-agnostic structures, with identified characteristics, providing a solution to a known recurrent issue. Similarly to ontology modules, ontology design patterns are reusable by nature. You can find some ontology design patterns on this <a href="http://ontologydesignpatterns.org">dedicated portal</a>. The key takeaway is that ontology design patterns <strong>capture modeling efforts</strong>: using them is a way to capitalize on previous work.</p>
+
+<p>Let’s implement these good practices by <a href="/for-developers/apps/vocabularies/create/extended">improving the vocabulary we created</a> in the quickstart tutorial</p>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                  
+                  <ul>
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create"
+                            
+                          >Create your own vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/best-practices"
+                             class="is-active" 
+                          >Vocabulary building best practices</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/extended"
+                            
+                          >Improve your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/create/methodology"
+                            
+                          >NeOn, a vocabulary creation methodology</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/use/extended"
+                            
+                          >Describe data for Solid</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish"
+                            
+                          >Publish your vocabulary</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/rdf"
+                            
+                          >Publish your vocabulary as RDF</a>
+                        </li>
+                      
+                    
+                      
+                        <li>
+                          <a
+                            href="/for-developers/apps/vocabularies/publish/artifacts"
+                            
+                          >Publish your vocabulary as code artifacts</a>
+                        </li>
+                      
+                    
+                      
+                    
+                      
+                    
+                  </ul>
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                  
+                
+              </li>
+            </ul>
+          
+            <ul>
+              <li>
+                
+                  
+                
+              </li>
+            </ul>
+          
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

@@ -1,0 +1,424 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Notification in Solid · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/for-developers/apps/common-patterns/notification" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+  <nav id="breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+        
+        
+          <li>
+            <a href="/for-developers/">
+              For Developers
+            </a>
+          </li>
+        
+        
+        
+          <li>
+            <a href="">
+              Notification in Solid
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+    <main>
+      <div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <article class="section content">
+        <h1 id="notification-in-solid-apps">Notification in Solid apps</h1>
+
+<p>When developing social apps, where users interact asynchronously, or whenever an app wants to let you know that something relevant happened, notifications come in handy. Let’s see how they are used in Solid.</p>
+
+<h2 id="what-youll-need-for-this-tutorial">What you’ll need for this tutorial</h2>
+
+<h3 id="interacting-entities">Interacting entities</h3>
+
+<ul>
+  <li>We’ll consider the online exchanges between <a href="https://cleopatra.solid.community">Cleopatra</a> and <a href="https://jcaesar.solid.community">Julius Caesar</a>, both known for their activity on social media (among other things). In this case, we’re not interested in Caesar as an imperarot, but rather as a successful book author: ‘De Bello Gallico’ is about to be out, and Caesar is having a release party for his memoirs. He wants to invite Cleopatra as a fellow elite member of the Roman society.</li>
+  <li>If you have one, you’ll also be able to use your own pod and webid to be invited to the party! These can easily be set up on the <a href="https://solid.community/">solid community server</a>.</li>
+  <li>If you want to run pieces of code illustrating these examples, check out the <a href="https://tech.io/playgrounds/51181/common-patterns-with-solid">associated playground</a></li>
+</ul>
+
+<h3 id="vocabulary-and-concepts">Vocabulary and concepts</h3>
+
+<p>Notifications in solid are based on the <a href="https://www.w3.org/TR/ldn/">Linked Data Notification (LDN) specification</a>:</p>
+
+<p><img src="https://www.w3.org/TR/ldn/linked-data-notifications-overview.svg" alt="LDN overview" /></p>
+
+<p>The following terms are defined by the LDN recommendation, and here is specifically how we use them in the context of solid:</p>
+<ul>
+  <li>Sender: The application sending the notification</li>
+  <li>Target: The id of the entity receiving the notification</li>
+  <li>Receiver: The pod advertised by the Target as its own, and in particular hosting its inbox.</li>
+  <li>Consumer: The app consuming the notification from the target’s inbox</li>
+  <li>Notification: The message itself</li>
+</ul>
+
+<h2 id="first-things-first-inbox-discovery">First things first: inbox discovery</h2>
+
+<p>Notifications should be sent to inboxes, and any resource can advertise for an inbox (not only WebIDs). It’s up to the sender and to the receiver to select the appropriate resource when sending/receiving notifications. For instance, when sending a notification specifically related to Cleopatra’s busy schedule, one might consider addressing it to the inbox advertised by her calendar resource, <code class="highlighter-rouge">https://cleopatra.solid.community/public/calendar/inbox/</code>, that you can discover by examining the response to a GET on <code class="highlighter-rouge">https://cleopatra.solid.community/public/calendar</code>.</p>
+
+<p>Let’s dereference <a href="https://cleopatra.solid.community/profile/card#me">Cleopatra’s WebID</a>, with a simple HTTP GET. You should be served an RDF document in which, among other things, you will find:</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">ldp:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/ns/ldp#&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">inbox:</span><span class="w"> </span><span class="nl">&lt;/inbox/&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="err">:</span><span class="n">me
+</span><span class="w">    </span><span class="k">a</span><span class="w"> </span><span class="nn">schem:</span><span class="n">Person,</span><span class="w"> </span><span class="nn">n0:</span><span class="n">Person</span><span class="p">;</span><span class="w">
+    </span><span class="p">...</span><span class="w">
+    </span><span class="nn">ldp:</span><span class="n">inbox</span><span class="w"> </span><span class="nn">inbox:</span><span class="p">;</span><span class="w">
+</span></code></pre></div></div>
+
+<p>From this snippet, we see that the WebID advertises for an inbox, in this case <code class="highlighter-rouge">https://cleopatra.solid.community/inbox/</code>, thanks to the property <code class="highlighter-rouge">ldp:inbox</code>. And that’s it, no we can get to notification sending!</p>
+
+<iframe src="https://codesandbox.io/embed/discover-inbox-cf6gs?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="discover-inbox" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<h2 id="sending-a-notification">Sending a notification</h2>
+
+<p>A notification is sent to the previously discovered inbox through a POST request, containing the notification body. Although it is not a strict requirement, a notification can be expressed using the ActivityStreams vocabulary (TODO: add link to voc documentation).</p>
+
+<p>First, Caesar created the event <a href="https://jcaesar.solid.community/public/calendar/50BC/Martius/PartyAtCaesarPalace.ttl">on his pod</a>. He then sends the invite to Cleopatra’s calendar inbox:</p>
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">POST</span><span class="w"> </span><span class="n">/public/calendar/inbox/</span><span class="w"> </span><span class="n">HTTPS/1</span><span class="mf">.1</span><span class="w">
+</span><span class="nn">Host:</span><span class="w"> </span><span class="n">cleopatra</span><span class="p">.</span><span class="n">solid</span><span class="p">.</span><span class="nn">community
+Content-Type:</span><span class="w"> </span><span class="n">text/turtle
+
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">inv:</span><span class="w"> </span><span class="nl">&lt;&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">as:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/ns/activitystreams#&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="nn">inv:</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">as:</span><span class="n">Invite</span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Invitation"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"You are invited to my book release party"</span><span class="p">;</span><span class="w">
+    </span><span class="nn">as:</span><span class="n">object</span><span class="w"> </span><span class="nl">&lt;https://jcaesar.solid.community/public/calendar/50BC/Martius/PartyAtCaesarPalace.ttl&gt;</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the response, the Location header indicates the IRI of the created event. In order to get a name nicer than a generated UUID, Caesar could have proposed a name with a Slug header in his request.</p>
+
+<iframe src="https://codesandbox.io/embed/busy-rain-fkcyg?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="send-notification" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+      </article>
+    </div>
+    <aside id="sidebar" class="column is-one-third is-hidden-mobile section">
+      <div class="menu is-large">
+        
+          
+
+<ul class="menu-list">
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+        
+      </li>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+        
+        <!-- This is for categories with sub-categories -->
+        
+          <!-- List all posts in the category (no subcategories) -->
+          <ul>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/common-patterns"
+                  
+                >Common patterns in Solid apps</a></li>
+            
+              <li>
+                <a
+                  href="/for-developers/apps/common-patterns/notification"
+                   class="is-active" 
+                >Notification in Solid</a></li>
+            
+          </ul>
+        
+      </li>
+                    <a href="/for-developers/apps/vocabularies"></a>
+    
+  
+    
+      <li>
+        
+          <a href="/for-developers/apps/tools">Tools and libraries</a>
+        
+      </li>
+    
+  
+</ul>
+        
+      </div>
+    </aside>
+  </div>
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>

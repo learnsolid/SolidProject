@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Home · Solid</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/favicon.ico?"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="is-hidden-mobile navbar-item navbar-brand-name is-uppercase is-size-4" href="/">
+        Solid
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/use-solid"
+          >使用Solid</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-developers"
+          >开发人员</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/for-enterprises"
+          >企业</a>
+        
+          <a
+            class="navbar-item is-size-6 is-size-5-tablet"
+            href="/faqs"
+          >常见问题</a>
+        
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <div id="draft-warning"></div>
+<script>
+  if (document.location.hostname === 'localhost' || document.location.hostname === 'solid.github.io') {
+    const draftWarningElement = document.getElementById('draft-warning')
+    draftWarningElement.innerHTML = `
+      <div class="message is-danger is-large" role="alert">
+        <div class="message-body">
+          You are currently viewing a draft version of the Solid website. If you are looking for reliable information, visit the live site at <a href="https://solidproject.org/" title="The official Solid website">SolidProject.org</a>.
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+    
+
+    <main>
+      <section id="home-hero" class="hero is-dark is-large">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title has-text-centered is-size-3 is-size-2-tablet is-size-1-desktop">
+       可以带着您的数据   
+        <br />
+        在存储和应用间切换
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div id="landing-content">
+  <section id="why-carousel" class="section">
+
+  <div class="container">
+    
+
+    <div class="columns is-desktop">
+      <div class="column">
+        <div class="card">
+  <div class="card-body has-text-centered section">
+    <figure class="image is-64x64">
+      <img src="/assets/img/fontawesome-free-5.11.2-web/svgs/solid/dolly.svg" alt="[]" />
+    </figure>
+    <p class="title is-size-4 is-uppercase">
+      <strong>在服务间自由转移</strong>
+    </p>
+    <hr />
+    <p class="content is-size-5">
+      带着你的数据<br />切换到最好的工具
+    </p>
+  </div>
+</div>
+      </div>
+      <div class="column">
+        <div class="card">
+  <div class="card-body has-text-centered section">
+    <figure class="image is-64x64">
+      <img src="/assets/img/fontawesome-free-5.11.2-web/svgs/solid/recycle.svg" alt="[]" />
+    </figure>
+    <p class="title is-size-4 is-uppercase">
+      <strong>在应用间重用数据</strong>
+    </p>
+    <hr />
+    <p class="content is-size-5">
+      数据可以重复使用<br />同样的数据无需重复输入
+    </p>
+  </div>
+</div>
+      </div>
+      <div class="column">
+        <div class="card">
+  <div class="card-body has-text-centered section">
+    <figure class="image is-64x64">
+      <img src="/assets/img/fontawesome-free-5.11.2-web/svgs/solid/users.svg" alt="[]" />
+    </figure>
+    <p class="title is-size-4 is-uppercase">
+      <strong>同任何人建立联系</strong>
+    </p>
+    <hr />
+    <p class="content is-size-5">
+      不管用什么样的App<br />都可跟您朋友建立联系
+    </p>
+  </div>
+</div>
+      </div>
+      <div class="column">
+        <div class="card">
+  <div class="card-body has-text-centered section">
+    <figure class="image is-64x64">
+      <img src="/assets/img/fontawesome-free-5.11.2-web/svgs/solid/crosshairs.svg" alt="[]" />
+    </figure>
+    <p class="title is-size-4 is-uppercase">
+      <strong>精准共享你的数据</strong>
+    </p>
+    <hr />
+    <p class="content is-size-5">
+      只需提供服务所要求<br />最小的数据访问权限
+    </p>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section id="choose-your-own-adventure" class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title has-text-centered is-size-3 is-size-2-tablet is-size-2-desktop">
+        看看为什么您会喜欢
+      </h1>
+      <div class="section field is-grouped">
+        <div class="control">
+          <a href="/for-developers" class="button is-large is-primary is-rounded is-uppercase">作为开发者</a>
+        </div>
+        <div class="control">
+          <a href="/for-enterprises" class="button is-large is-primary is-rounded is-uppercase">作为企业</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <div id="tour">
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-hidden-touch is-offset-1 is-4">
+            <figure class="image">
+              <img src="/assets/img/like-peas-in-a-pod.svg" alt="[]" />
+            </figure>
+          </div>
+          <div class="column is-offset-1 is-5">
+            <h2 class="title">就像在豌豆荚里的豌豆</h2>
+            <p class="content is-large">
+              你的 <a href="/faqs#pod" title="常见问题——什么是Pod?">Pod</a>是你存储数据的地方。Pod和App是独立并且兼容，因此您可以在保留数据的同时自由的切换App。例如，如果你想切换聊天程序，只要两个程序都支持Solid，你就可以轻松地带着你的联系人和聊天记录切换程序。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-1 is-5">
+            <h2 class="title">您将只需要登录一次</h2>
+            <p class="content is-large">
+              你的<a href="/faqs#webid" title="常见问题——什么是WebID?">WebID</a> 将带来强大的改变，收你说了算：让每个应用程序找到你的账户，而不是为每个应用程序创建一个账户。 最重要的是，无论他们使用什么Solid应用程序，您的WebID都可以使人们与您建立联系。
+            </p>
+          </div>
+          <div class="column is-hidden-touch is-offset-1 is-4">
+            <figure class="image">
+              <img src="/assets/img/single-sign-on.svg" alt="[]" />
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-hidden-touch is-offset-1 is-4">
+            <figure class="image is-square">
+              <img src="/assets/img/solid-is-a-standard.svg" alt="[]" />
+            </figure>
+          </div>
+          <div class="column is-offset-1 is-5">
+            <h2 class="title">
+             建立在开放标准之上的开放规范
+            </h2>
+            <p class="content is-large">
+            象网站那样，您可以在任何设备上使用所选的浏览器进行浏览。 Solid为您提供同样的选择，但对于<em>数据</em>,您可以选择信任的应用程序来处理您的个人数据。为了实现这种前所未有的互操作性，Solid使用与Web相同的配方：遵循 <a href="https://solid.github.io/specification/">开放的标准和规范</a>。欢迎任何人<a href="/standardisation">加入标准化过程</a>。             
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="columns">
+    <div class="column is-half-desktop is-offset-one-quarter-desktop">
+      <div id="newsletter" class="section">
+  <form action="https://tinyletter.com/ThisWeekInSolid" class="card" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/ThisWeekInSolid', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+    <div class="card-body section">
+      <h2 class="title">
+        
+          <a href="/this-week-in-solid" title="View past editions of This Week in Solid">
+            Solid每周简报
+          </a>
+        
+      </h2>
+      <p class="content">
+        <label for="tlemail">
+          留下您的电子邮件地址，即可大致了解到Solid的所有内容，每周一次直接发送到您的收件箱。          
+        </label>
+      </p>
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="email" name="email" placeholder="yourmail@example.com" id="tlemail" />
+        </div>
+      </div>
+      <input type="hidden" value="1" name="embed" />
+      <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-large" value="提交" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+    </div>
+  </div>
+
+</div>
+
+    </main>
+    <footer id="footer" class="footer">
+  <div class="container">
+    <div class="columns">
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/">首页</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/use-solid">使用Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/implement">实现Solid</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/team">团队</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/faqs">常见问题</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">最新消息</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/this-week-in-solid">Solid本周</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/press">新闻</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/events">Solid事件</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <a class="title is-size-5" href="/for-developers">开发人员</a>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/apps">写应用</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/for-developers/pod-server">运行Pod服务</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/funding">资金</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://forum.solidproject.org">论坛</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="column">
+          <ul>
+            <li>
+              
+                <span class="title is-size-5">更多</span>
+              
+            </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/standardisation">标准化</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/license">许可</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="/logo-usage-guidelines">图标使用指南</a>
+                
+              </li>
+            
+              <li>
+                
+                  <a class="is-size-5" href="https://github.com/solid/solidproject.org/issues/new">网站反馈</a>
+                
+              </li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="/assets/img/solid-emblem.svg"
+          alt="[Solid logo]"
+        />
+      </a>
+      <a class="navbar-item" href="mailto:info@solidproject.org">
+        info@solidproject.org
+      </a>
+      <a class="navbar-item" href="https://github.com/solid/" title="Solid on GitHub">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/github.svg"
+            alt="GitHub"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/project_solid" title="Solid on Twitter">
+        <span class="image is-24x24">
+          <img
+            src="/assets/img/fontawesome-free-5.11.2-web/svgs/brands/twitter.svg"
+            alt="Twitter"
+            class="brand-icon"
+          />
+        </span>
+      </a>
+    </div>
+  </nav>
+</footer>
+
+  </body>
+
+
+</html>
