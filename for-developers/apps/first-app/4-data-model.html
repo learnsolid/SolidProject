@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Step 4: Setting up a Data Model · Solid</title>
+    <title>第四步：设置数据模型 · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              Step 4: Setting up a Data Model
+              第四步：设置数据模型
             </a>
           </li>
         
@@ -104,39 +104,30 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/900cbbb2c4b7fadef8aa5969a11d8816b37b00b7">This step as a Git commit.</a>)</p>
+        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/900cbbb2c4b7fadef8aa5969a11d8816b37b00b7">这一步的Git提交</a>)</p>
 
-<p>Now it’s time to start working on some actual functionality: we’ll be making an app that allows
-people to keep notes. In this step, we’ll prepare their Pod for our data model — much as you
-might prepare database tables in a traditional application with a relational back-end.</p>
+<p>现在是时候开始研究一些实际功能了：我们将制作一个允许人们记录笔记的应用程序。在这一步中，我们将为数据模型准备他们的Pod，就像在具有关系数据库后端的传统应用程序中准备数据库表一样。</p>
 
-<p>At a high level, we’ll set up the data model as follows:</p>
+<p>在较高的层次上，我们将按如下所示设置数据模型：</p>
 
 <ol>
-  <li>Check if a Document tracking our notes already exists.</li>
-  <li>If it doesn’t exist, create it.</li>
-  <li>Fetch that Document.</li>
+  <li>检查是否已经存在跟踪我们的笔记的文档。</li>
+  <li>如果不存在，则创建一个。</li>
+  <li>获取该文档。</li>
 </ol>
 
-<p>So to start with the first step: in which Document should we track notes? The answer can be found in
-the concept of the <em>Public Type Index</em>.</p>
+<p>因此，从第一步开始：我们应该在哪个文档中跟踪注释？答案可以在“公共类型索引（ <em>Public Type Index</em> ）”的概念中找到。</p>
 
-<p>The Public Type Index is itself a publicly accessible Document stored in the user’s Pod. This
-Document contains a list of links to other Documents, along with the type of data that is to be
-included in those Documents. To store notes, the data type we will use is the
-<a href="http://schema.org/TextDigitalDocument"><code class="highlighter-rouge">TextDigitalDocument</code></a>, defined by
-<a href="http://schema.org/">Schema.org</a>. Every time the user saves a note, we will store it as a
-TextDigitalDocument.</p>
+<p>Public Type Index本身就是存储在用户Pod中的可公开访问的文档。本文档包含到其他文档的链接列表，以及要包含在这些文档中的数据类型。为了存储笔记，我们将使用的数据类型是<a href="http://schema.org/">Schema.org</a>定义的<a href="http://schema.org/TextDigitalDocument"><code class="highlighter-rouge">TextDigitalDocument</code></a>。每次用户保存笔记时，我们都会将其存储为<a href="http://schema.org/TextDigitalDocument"><code class="highlighter-rouge">TextDigitalDocument</code></a>。</p>
 
-<p>If the Document containing these notes was located in the user’s Pod at <code class="highlighter-rouge">/public/notes.ttl</code>, their
-Public Type Index could refer to it like this:</p>
+<p>如果包含这些笔记的文档位于用户的Pod中/public/notes.ttl，则其“Public Type Index”可以像这样引用它：</p>
 
 <table>
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Predicate</th>
-      <th>Object</th>
+      <th>主Subject</th>
+      <th>谓Predicate</th>
+      <th>宾Object</th>
     </tr>
   </thead>
   <tbody>
@@ -158,18 +149,15 @@ Public Type Index could refer to it like this:</p>
   </tbody>
 </table>
 
-<p>The above Type Index includes one Type Registration, identified by <code class="highlighter-rouge">#notes</code>, that registers
-<code class="highlighter-rouge">/public/notes.ttl</code> for the data type <code class="highlighter-rouge">schema:TextDigitalDocument</code>.</p>
-
-<p>So how do we find the user’s Public Type Index? It’s usually listed in their profile, i.e. the
-Document accessible at their WebID:</p>
+<p>上面的Type Index包括一个由<code class="highlighter-rouge">#notes</code>标识的类型注册，用于为数据类型<code class="highlighter-rouge">schema:TextDigitalDocument</code>注册<code class="highlighter-rouge">/public/notes.ttl</code>。
+那么，我们如何找到用户的Public Type Index？它通常列在他们的个人资料中，即可通过其WebID访问的文档：</p>
 
 <table>
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Predicate</th>
-      <th>Object</th>
+      <th>主Subject</th>
+      <th>谓Predicate</th>
+      <th>宾Object</th>
     </tr>
   </thead>
   <tbody>
@@ -181,10 +169,9 @@ Document accessible at their WebID:</p>
   </tbody>
 </table>
 
-<p>This is a pattern you’ll often encounter when writing Solid apps: you start with the user’s WebID,
-read the profile Document located there, and from there you can find the data you need.</p>
+<p>这是编写Solid应用程序时经常遇到的一种模式：从用户的WebID开始，阅读位于此处的个人资料文档，然后从那里可以找到所需的数据。</p>
 
-<p>So let’s see what this looks like in code:</p>
+<p>现在，让我们看一下代码中的内容：</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">fetchDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">tripledoc</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">solid</span><span class="p">,</span> <span class="nx">schema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rdf-namespaces</span><span class="dl">'</span><span class="p">;</span>
@@ -210,23 +197,15 @@ read the profile Document located there, and from there you can find the data yo
 <a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/4-data-model/?module=%2Fsrc%2Fservices%2FfetchPublicTypeIndex.ts"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
 </span></p>
 
-<p>Given the <code class="highlighter-rouge">profile</code> <a href="/for-developers/apps/first-app/3-reading-data">we fetched before</a>, we can find a reference to the public Type
-Index under <code class="highlighter-rouge">solid:publicTypeIndex</code>. Then in the public Type Index, we can find the <code class="highlighter-rouge">#notes</code> entry
-by looking for the Subject that has a Statement saying it is for the class
-<code class="highlighter-rouge">schema:TextDigitalDocument</code>.</p>
+<p>给定我们之前获取的配置文件，我们可以在solid：publicTypeIndex下找到对公共类型索引的引用。然后，在公共类型索引中，我们可以通过查找主题声明为“ Schema：TextDigitalDocument”类的Subject来查找#notes条目。</p>
 
-<p>If that Subject is not found, we initialise a new Document to contain the notes — more on that
-later. If it <em>is</em> found, we find the URL of the Document that should contain notes under the
-<code class="highlighter-rouge">solid:instance</code> key. All we then have to do is to call <code class="highlighter-rouge">fetchDocument</code> to retrieve the Document at
-that URL.</p>
+<p>给定<code class="highlighter-rouge">profile</code> <a href="/for-developers/apps/first-app/3-reading-data">我们之前获取的</a>, 我们可以在 <code class="highlighter-rouge">solid:publicTypeIndex</code>找到public Type Index的引用。然后在public Type Index中，我们可以发现<code class="highlighter-rouge">#notes</code> 条目，参赛过查找主语声明为<code class="highlighter-rouge">schema:TextDigitalDocument</code>的类的查找#notes条目。</p>
 
-<p>One thing to keep in mind, again, is that you can make no assumptions about the data in the user’s
-Pod. Thus, to be safe you should always check whether the return value of <code class="highlighter-rouge">getRef()</code> is <code class="highlighter-rouge">null</code>.
-Consider using <a href="https://www.typescriptlang.org/">TypeScript</a> to get a warning when you forget to do
-so.</p>
+<p>如果找不到该“主语”，我们将初始化一个新文档以包含笔记——稍后再进行介绍。如果找到它，我们将在<code class="highlighter-rouge">solid:instance</code> 键下找到应该包含笔记的文档URL。然后，我们要做的就是调用<code class="highlighter-rouge">fetchDocument</code>来检索该URL上的Document。</p>
 
-<p>That leaves us with one loose thread: the function <code class="highlighter-rouge">initialiseNotesList()</code>, which creates a new
-Document that will contain the notes, and adds it to the Public Type Index. Let’s take a look:</p>
+<p>同样要记住的一件事是，您不能对用户Pod中的数据做任何假设。因此，为了安全起见，应始终检查<code class="highlighter-rouge">getRef()</code>的返回值是否为<code class="highlighter-rouge">null</code>。如果忘记这样做，可以考虑使用 <a href="https://www.typescriptlang.org/">TypeScript</a> 来获得警告。</p>
+
+<p>这给了我们一个松散的线程：该 <code class="highlighter-rouge">initialiseNotesList()</code>函数创建一个将包含笔记的新Document，并将其添加到Public Type Index。让我们来看看：</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">tripledoc</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">space</span><span class="p">,</span> <span class="nx">rdf</span><span class="p">,</span> <span class="nx">solid</span><span class="p">,</span> <span class="nx">schema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">rdf-namespaces</span><span class="dl">'</span><span class="p">;</span>
@@ -256,16 +235,11 @@ Document that will contain the notes, and adds it to the Public Type Index. Let�
 <a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/4-data-model/?module=%2Fsrc%2Fservices%2FinitialiseNotesList.ts"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
 </span></p>
 
-<p>(Keep in mind that, in order to write to the user’s Pod, the user will need to have given your app
-explicit permission to write <a href="/for-developers/apps/first-app/1-authentication">when they signed in</a>.)</p>
+<p>（请记住，要写入用户的Pod，用户需要在 <a href="/for-developers/apps/first-app/1-authentication">登录时</a>授予您的应用显式写入权限。）</p>
 
-<p>If all the above looks terribly complicated: that’s because it is. <a href="https://ruben.verborgh.org/blog/2019/06/17/shaping-linked-data-apps/">Work is underway to make this
-easier in the future</a>,
-allowing you to point a library at any data model, and having the library make sure that the user’s
-Pod is automatically prepared to handle that model. For now though, you’ll have to work through
-these step-by-step instructions.</p>
+<p>如果上述所有内容看起来都很复杂：那是因为<a href="https://ruben.verborgh.org/blog/2019/06/17/shaping-linked-data-apps/">有些工作还在开展中</a>。允许您将库指向任何数据模型，并让该库确保用户的Pod已自动准备好处理该模型。不过，到目前为止，您必须按照这些步骤说明进行操作。</p>
 
-<p>Next: <a href="/for-developers/apps/first-app/5-writing-data">Writing data</a></p>
+<p>下一步: <a href="/for-developers/apps/first-app/5-writing-data">写入数据</a></p>
 
       </article>
     </div>
@@ -279,7 +253,7 @@ these step-by-step instructions.</p>
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -290,37 +264,37 @@ these step-by-step instructions.</p>
                 <a
                   href="/for-developers/apps/first-app"
                   
-                >Introduction</a></li>
+                >介绍</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/1-authentication"
                   
-                >Step 1: identifying the user</a></li>
+                >第一步: 识别用户</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/2-understanding-solid"
                   
-                >Step 2: Understanding Solid</a></li>
+                >第二步：理解Solid</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/3-reading-data"
                   
-                >Step 3: Reading data</a></li>
+                >第三步：读取数据</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/4-data-model"
                    class="is-active" 
-                >Step 4: Setting up a Data Model</a></li>
+                >第四步：设置数据模型</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/5-writing-data"
                   
-                >Step 5: Writing data & what's next</a></li>
+                >第五步：写数据以及接下去</a></li>
             
           </ul>
         
@@ -331,7 +305,7 @@ these step-by-step instructions.</p>
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
       </li>
     
@@ -339,7 +313,7 @@ these step-by-step instructions.</p>
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -347,7 +321,7 @@ these step-by-step instructions.</p>
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     

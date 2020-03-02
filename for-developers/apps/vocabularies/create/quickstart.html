@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>How to create your own vocabulary · Solid</title>
+    <title>怎样创建你自己的词汇表 · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              How to create your own vocabulary
+              怎样创建你自己的词汇表
             </a>
           </li>
         
@@ -104,41 +104,39 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <h1 id="how-to-create-your-own-vocabulary">How to create your own vocabulary</h1>
+        <h1 id="怎样创建你自己的词汇表">怎样创建你自己的词汇表</h1>
 
-<p>Let’s build a very simple vocabulary describing <a href="https://en.wikipedia.org/wiki/Obelisk">obelisks</a> (tall, four-sided, narrow tapering monuments that end in a pyramid-like shape), so that <a href="https://cleopatra.solid.community/profile/card#me">Cleopatra</a> and <a href="https://jcaesar.solid.community/profile/card#me">Caesar</a> can share information about their personal collections.</p>
+<p>让我们建立一个非常简单的词汇来描述<a href="https://en.wikipedia.org/wiki/Obelisk">方尖碑obelisks</a> （高，四边，狭窄的锥形纪念碑，以金字塔形状结尾），以便<a href="https://cleopatra.solid.community/profile/card#me">埃及艳后Cleopatra</a> 和<a href="https://jcaesar.solid.community/profile/card#me">凯撒Caesar</a> 可以分享有关其个人收藏信息。</p>
 
-<h2 id="from-plain-english-to-a-graphical-representation">From plain English to a graphical representation</h2>
+<h2 id="从简单的英语到图形表示">从简单的英语到图形表示</h2>
 
-<p>Let’s start by stating in English what we’d like to put in our vocabulary:</p>
+<p>首先，用英语说出我们想要输入的词汇:</p>
 <ul>
   <li>An <code class="highlighter-rouge">obelisk</code> is <code class="highlighter-rouge">owned by</code> a <code class="highlighter-rouge">person</code>.</li>
   <li>An <code class="highlighter-rouge">obelisk</code> is <code class="highlighter-rouge">built by</code> a <code class="highlighter-rouge">sculptor</code>.</li>
   <li>An <code class="highlighter-rouge">obelisk</code> has a <code class="highlighter-rouge">height</code>, which is a numerical value.</li>
 </ul>
 
-<p>The highlighted elements of these sentences are going to be the ‘terms’ in our 
-vocabulary. We can identify two types of terms: the things that we talk about
-(e.g. <code class="highlighter-rouge">obelisk</code> or <code class="highlighter-rouge">sculptor</code>), and their properties (e.g. <code class="highlighter-rouge">built by</code> or 
-<code class="highlighter-rouge">height</code>). Let’s make a graphical representation of that by putting the things
- in bubbles, and the properties in squares:</p>
+<p>这里我们用中文表述一下上面的词汇：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">方尖碑</code> <code class="highlighter-rouge">归于</code> 一个<code class="highlighter-rouge">人</code>所有。</li>
+  <li><code class="highlighter-rouge">方尖碑</code> 由<code class="highlighter-rouge">雕刻家</code> <code class="highlighter-rouge">建造</code>。</li>
+  <li><code class="highlighter-rouge">方尖碑</code>的<code class="highlighter-rouge">高度</code>是一个数值。</li>
+</ul>
+
+<p>这些句子中突出显示的元素将成为我们词汇表中的“术语”。我们可以识别两种类型的术语：我们谈论的事物（例如<code class="highlighter-rouge">方尖碑</code>或<code class="highlighter-rouge">雕刻家</code>）及其属性（例如，按<code class="highlighter-rouge">高度</code>或<code class="highlighter-rouge">建造</code>）。让我们用图形表示，将事物放在气泡中，将属性放在正方形中：</p>
 
 <p><img src="/assets/img/tutorials/vocabularies/obelisk_vocab_1.png" alt="The obelisk vocabulary" /></p>
 
-<h2 id="from-plain-english-to-rdf">From plain English to RDF</h2>
+<h2 id="从简单的英语到rdf">从简单的英语到RDF</h2>
 
-<h3 id="identifying-everything-with-iris">Identifying everything with IRIs</h3>
+<h3 id="使用iri识别所有内容">使用IRI识别所有内容</h3>
 
-<p>RDF is the language used to build vocabularies for use across the Web (aka
-Linked Data). In RDF, everything is identified by IRIs (which are simply
-standard web URIs (Universal Resource Identifiers), but just a little bit more
-modern in that they can contain characters from a more <em>Internationalised</em> set
-of characters (e.g. ‘α’, ‘δ’, or ‘ό’)).</p>
+<p>RDF是用于构建词汇表以在整个Web（又称为关联数据）中使用的语言。在RDF中，所有内容都由IRI（它们只是标准的Web URI（通用资源标识符））进行标识，但稍微现代一些，因为它们可以包含来自更为国际化的字符集中的字符（例如’α’, ‘δ’, 或 ‘ό’））。</p>
 
-<p>First, we’ll need an IRI to represent (or identify) our new vocabulary (as we
-said, everything in RDF is identified with IRIs!), e.g. 
-<a href="http://w3id.org/obelisk/">http://w3id.org/obelisk/</a>. From there, let’s now
-update our plain English example a little bit:</p>
+<p>首先，我们需要一个IRI来表示（或识别）我们的新词汇（正如我们所说，RDF中的所有内容都由IRI来识别！），例如<a href="http://w3id.org/obelisk/">http://w3id.org/obelisk/</a>。从那里开始，让我们现在更新一下简单的英语示例：</p>
+
 <ul>
   <li>An <a href="http://w3id.org/obelisk/Obelisk">http://w3id.org/obelisk/Obelisk</a> is <a href="http://w3id.org/obelisk/ownedBy">http://w3id.org/obelisk/ownedBy</a> a <a href="http://w3id.org/obelisk/Person">http://w3id.org/obelisk/Person</a>.</li>
   <li>An <a href="http://w3id.org/obelisk/Obelisk">http://w3id.org/obelisk/Obelisk</a> is <a href="http://w3id.org/obelisk/builtBy">http://w3id.org/obelisk/builtBy</a> a <a href="http://w3id.org/obelisk/Sculptor">http://w3id.org/obelisk/Sculptor</a>.</li>
@@ -437,7 +435,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
       </li>
     
@@ -445,7 +443,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -454,7 +452,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
               <li>
                 
                   
-                    <a href="/for-developers/apps/vocabularies">Overview</a>
+                    <a href="/for-developers/apps/vocabularies">概述</a>
                   
                 
               </li>
@@ -464,7 +462,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
               <li>
                 
                   
-                    <a href="/for-developers/apps/vocabularies/create/quickstart">Quickstart</a>
+                    <a href="/for-developers/apps/vocabularies/create/quickstart">快速开始</a>
                   
                   <ul>
                     
@@ -475,65 +473,8 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
                           <a
                             href="/for-developers/apps/vocabularies/create/quickstart"
                              class="is-active" 
-                          >How to create your own vocabulary</a>
+                          >怎样创建你自己的词汇表</a>
                         </li>
-                      
-                    
-                      
-                        <li>
-                          <a
-                            href="/for-developers/apps/vocabularies/publish/quickstart"
-                            
-                          >Publish your vocabulary on your Pod</a>
-                        </li>
-                      
-                    
-                      
-                        <li>
-                          <a
-                            href="/for-developers/apps/vocabularies/use/quickstart"
-                            
-                          >Describe data</a>
-                        </li>
-                      
-                    
-                      
-                        <li>
-                          <a
-                            href="/for-developers/apps/vocabularies/code/quickstart"
-                            
-                          >Code with your vocabulary</a>
-                        </li>
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
                       
                     
                       
@@ -547,7 +488,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
               <li>
                 
                   
-                    <a href="/for-developers/apps/vocabularies/well-known">Discover</a>
+                    <a href="/for-developers/apps/vocabularies/well-known">探索</a>
                   
                 
               </li>
@@ -557,7 +498,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
               <li>
                 
                   
-                    <a href="/for-developers/apps/vocabularies/create">Create</a>
+                    <a href="/for-developers/apps/vocabularies/create">创建</a>
                   
                 
               </li>
@@ -567,7 +508,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
               <li>
                 
                   
-                    <a href="/for-developers/apps/vocabularies/code">Code</a>
+                    <a href="/for-developers/apps/vocabularies/code">编码</a>
                   
                 
               </li>
@@ -589,7 +530,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -597,7 +538,7 @@ with the syntax using a <a href="http://www.easyrdf.org/converter?data=%40prefix
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     
