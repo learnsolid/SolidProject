@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Step 2: Understanding Solid · Solid</title>
+    <title>第二步：理解Solid · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              Step 2: Understanding Solid
+              第二步：理解Solid
             </a>
           </li>
         
@@ -104,24 +104,15 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <p>Now that we’ve <a href="/for-developers/apps/first-app/1-authentication">got the user’s WebID</a>, we have a starting point for fetching
-data from the user’s Pod. Before we do so, let’s review the fundamentals of the concepts behind
-Solid, to the extent necessary to write Solid Web Apps. If you’re already familiar with Linked Data,
-feel free to <a href="/for-developers/apps/first-app/3-reading-data">skip this step</a>.</p>
+        <p>现在我们<a href="/for-developers/apps/first-app/1-authentication">获得用户的WebID</a>之后，我们便有了一个从用户的Pod提取数据的起点。在我们这样做之前，让我们回顾一下Solid背后的概念的基础，了解编写Solid Web Apps所必需的一些知识。如果您已经熟悉关联数据，您随时<a href="/for-developers/apps/first-app/3-reading-data">跳过这步</a>。</p>
 
-<p>In traditional back-ends, data is usually stored in database tables. When your back-end is a Solid
-Pod, however, data is stored in <em>Documents</em> living at a certain URL — similar to how HTML documents
-live at a URL.</p>
+<p>在传统的后端中，数据通常存储在数据库表中。但是，当后端是Solid Pod时，数据将存储在位于某个URL的文档中-类似于在URL上存储HTML文档的方式。</p>
 
-<p>The user’s WebID can be used both to identify someone — because there’s only one person that
-controls that URL — and as a pointer to a Document containing information relevant to that user.</p>
+<p>用户的WebID既可以用来标识某人（因为只有一个人可以控制该URL），还可以用作指向包含与该用户有关的信息的文档的指针。</p>
 
-<p>My WebID is <code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card#me</code>. That means that there is a Document at
-<code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card</code> that contains data relevant to me.</p>
+<p>例如eureka的WebID是<code class="highlighter-rouge">https://eureka.name/profile/card#me</code>。这意味着文档<code class="highlighter-rouge">https://eureka.name/profile/card</code> 中包含与我相关的数据，而vincentt的WebID是<code class="highlighter-rouge">https://vincentt.inrupt.net/profile/card#me</code>。</p>
 
-<p>The most important thing to understand when writing a Solid app is how that data is represented. In
-a nutshell, a Document contains a list of relationships between things. For example, the Document
-referred to by my WebID contain the following relationships:</p>
+<p>编写Solid应用程序时要了解的最重要的事情是数据的表示方式。简而言之，文档包含事物之间关系的列表。例如，我的WebID所引用的文档包含以下关系：</p>
 
 <table>
   <thead>
@@ -281,7 +272,7 @@ tutorial, we’ll leave it as a simple string <em>Literal</em>.</p>
 <p>Phew! That should cover about all the Linked Data theory you should need to know to start working with
 Solid. Next up: actually reading data from such a Document.</p>
 
-<p>Next: <a href="/for-developers/apps/first-app/3-reading-data">Reading data</a></p>
+<p>下一步: <a href="/for-developers/apps/first-app/3-reading-data">读取数据</a></p>
 
       </article>
     </div>
@@ -295,7 +286,7 @@ Solid. Next up: actually reading data from such a Document.</p>
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -306,37 +297,37 @@ Solid. Next up: actually reading data from such a Document.</p>
                 <a
                   href="/for-developers/apps/first-app"
                   
-                >Introduction</a></li>
+                >介绍</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/1-authentication"
                   
-                >Step 1: identifying the user</a></li>
+                >第一步: 识别用户</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/2-understanding-solid"
                    class="is-active" 
-                >Step 2: Understanding Solid</a></li>
+                >第二步：理解Solid</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/3-reading-data"
                   
-                >Step 3: Reading data</a></li>
+                >第三步：读取数据</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/4-data-model"
                   
-                >Step 4: Setting up a Data Model</a></li>
+                >第四步：设置数据模型</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/5-writing-data"
                   
-                >Step 5: Writing data & what's next</a></li>
+                >第五步：写数据以及接下去</a></li>
             
           </ul>
         
@@ -347,7 +338,7 @@ Solid. Next up: actually reading data from such a Document.</p>
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
       </li>
     
@@ -355,7 +346,7 @@ Solid. Next up: actually reading data from such a Document.</p>
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -363,7 +354,7 @@ Solid. Next up: actually reading data from such a Document.</p>
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     

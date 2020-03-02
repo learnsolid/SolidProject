@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Step 3: Reading data · Solid</title>
+    <title>第三步：读取数据 · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              Step 3: Reading data
+              第三步：读取数据
             </a>
           </li>
         
@@ -104,29 +104,23 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/5c534abdd2d6ed18be8ddc256427fb7bc0baae71">This step as a Git commit.</a>)</p>
+        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/5c534abdd2d6ed18be8ddc256427fb7bc0baae71">该步的Git提交</a>)</p>
 
-<p>We’ve <a href="/for-developers/apps/first-app/1-authentication">got the user’s WebID</a> and we
-<a href="/for-developers/apps/first-app/2-understanding-solid">know that it points to a
-Document</a>; it’s time we actually
-read some data from that Document!</p>
+<p>我们已经<a href="/for-developers/apps/first-app/1-authentication">获得了用户的WebID</a> 并且我们
+<a href="/for-developers/apps/first-app/2-understanding-solid">知道它提向文档</a>; 现在是时候从那个文档读取一些数据了。</p>
 
-<p>We’ll be using <a href="https://vincenttunru.gitlab.io/tripledoc/">Tripledoc</a>, which was designed
-specifically for this purpose. Other libraries exist, such as
-<a href="https://www.npmjs.com/package/ldflex">ldflex</a>, <a href="https://www.npmjs.com/package/rdf-ext">rdf-ext</a> and
-<a href="https://www.npmjs.com/package/rdflib">rdflib</a>; Tripledoc intentionally has a more limited scope designed to aid
-“thinking in Solid”. If at some point in the future you want to start combining many different
-data sources, you might want to consider investigating these alternative libraries.</p>
+<p>我们将使用专为此目的设计的<a href="https://vincenttunru.gitlab.io/tripledoc/">Tripledoc</a>。还有些其它的库，例如<a href="https://www.npmjs.com/package/ldflex">ldflex</a>, <a href="https://www.npmjs.com/package/rdf-ext">rdf-ext</a> 和
+<a href="https://www.npmjs.com/package/rdflib">rdflib</a>; Tripledoc的目的是在更有限的范围内设计以帮助建立“Solid思考”。如果将来某个时候您想开始组合许多不同的数据源，则可能需要考虑研究这些替代库。</p>
 
-<p>We’ll try to get the user’s name as follows:</p>
+<p>我们将尝试按以下方式获取用户名：</p>
 
 <ol>
-  <li>Fetch the Document living at their WebID.</li>
-  <li>From that Document, read the Subject representing the current user’s profile.</li>
-  <li>Get the <code class="highlighter-rouge">foaf:name</code> of that Subject, if set.</li>
+  <li>在他们的WebID中获取文档。</li>
+  <li>从该文档中，读取代表当前用户个人资料的主语。</li>
+  <li>如果有设置，获取 <code class="highlighter-rouge">foaf:name</code> 的宾语。</li>
 </ol>
 
-<p>In code, that looks like this:</p>
+<p>在代码中，如下所示:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">fetchDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">tripledoc</span><span class="dl">'</span><span class="p">;</span>
 
@@ -188,7 +182,7 @@ other data.</p>
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -199,37 +193,37 @@ other data.</p>
                 <a
                   href="/for-developers/apps/first-app"
                   
-                >Introduction</a></li>
+                >介绍</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/1-authentication"
                   
-                >Step 1: identifying the user</a></li>
+                >第一步: 识别用户</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/2-understanding-solid"
                   
-                >Step 2: Understanding Solid</a></li>
+                >第二步：理解Solid</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/3-reading-data"
                    class="is-active" 
-                >Step 3: Reading data</a></li>
+                >第三步：读取数据</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/4-data-model"
                   
-                >Step 4: Setting up a Data Model</a></li>
+                >第四步：设置数据模型</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/5-writing-data"
                   
-                >Step 5: Writing data & what's next</a></li>
+                >第五步：写数据以及接下去</a></li>
             
           </ul>
         
@@ -240,7 +234,7 @@ other data.</p>
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
       </li>
     
@@ -248,7 +242,7 @@ other data.</p>
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -256,7 +250,7 @@ other data.</p>
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Step 5: Writing data & what's next · Solid</title>
+    <title>第五步：写数据以及接下去 · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              Step 5: Writing data & what's next
+              第五步：写数据以及接下去
             </a>
           </li>
         
@@ -104,22 +104,21 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/41d805dadb1d85eecb9675fe715cfa82a1d89ef5">This step as a Git commit.</a>)</p>
+        <p>(<a href="https://gitlab.com/vincenttunru/notepod/commit/41d805dadb1d85eecb9675fe715cfa82a1d89ef5">该步骤的Git提交</a>)</p>
 
-<p>Now that the user’s Pod is all set up, it’s time to store some actual notes. Luckily, <a href="/for-developers/apps/first-app/4-data-model">now that we
-already have our <code class="highlighter-rouge">notesList</code></a>, most of the heavy lifting is already done:</p>
+<p>既然用户的Pod已全部设置好，现在该存储一些实际的笔记了。幸运的是，既然<a href="/for-developers/apps/first-app/4-data-model">我们已经有了<code class="highlighter-rouge">notesList</code></a>，大部分繁重的工作已经完成：</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">addNote</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span> <span class="nx">notesList</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Initialise the new Subject:</span>
+  <span class="c1">// 实始化新的主语:</span>
   <span class="kd">const</span> <span class="nx">newNote</span> <span class="o">=</span> <span class="nx">notesList</span><span class="p">.</span><span class="nx">addSubject</span><span class="p">();</span>
 
-  <span class="c1">// Indicate that the Subject is a schema:TextDigitalDocument:</span>
+  <span class="c1">// 指示主语是Schema架构：TextDigitalDocument：</span>
   <span class="nx">newNote</span><span class="p">.</span><span class="nx">addRef</span><span class="p">(</span><span class="nx">rdf</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">TextDigitalDocument</span><span class="p">);</span>
 
-  <span class="c1">// Set the Subject's `schema:text` to the actual note contents:</span>
+  <span class="c1">//设置主语的 `schema:text` 到实际的笔记内容:</span>
   <span class="nx">newNote</span><span class="p">.</span><span class="nx">addString</span><span class="p">(</span><span class="nx">schema</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="nx">note</span><span class="p">);</span>
 
-  <span class="c1">// Store the date the note was created (i.e. now):</span>
+  <span class="c1">//存储笔记创建的时间 (i.e. now):</span>
   <span class="nx">newNote</span><span class="p">.</span><span class="nx">addDateTime</span><span class="p">(</span><span class="nx">schema</span><span class="p">.</span><span class="nx">dateCreated</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()))</span>
 
   <span class="kd">const</span> <span class="nx">success</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">notesList</span><span class="p">.</span><span class="nx">save</span><span class="p">([</span><span class="nx">newNote</span><span class="p">]);</span>
@@ -130,18 +129,18 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
 <a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/5-writing-data/?module=%2Fsrc%2Fservices%2FaddNote.ts"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
 </span></p>
 
-<p>With the user’s Pod fully set up, the above is all there is to it, really!</p>
+<p>完全设置好用户的Pod之后，以上就是全部！</p>
 
-<p>So what’s next? Start writing your own App! A couple of suggestions for avenues to explore while doing so:</p>
+<p>下一步干什么？开始编写您自己的应用程序！建议探索以下一些内容：</p>
 
 <ul>
-  <li><a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/5-writing-data/?module=%2Fsrc%2FApp.tsx">Play around in the completed note-taking app</a>.</li>
-  <li><a href="/for-developers/apps/vocabularies">Learn more about Vocabularies</a>: learn about commonly used Vocabularies, how to find other Vocabularies if those do not match your use case, or how to write your own if none suit your app.</li>
-  <li><a href="/for-developers/apps/tools">Try other libraries and tools</a>: we used <a href="https://vincenttunru.gitlab.io/tripledoc/">Tripledoc</a> in this tutorial, but you might be interested in libraries for languages other than JavaScript, or that give you more power.</li>
-  <li><a href="https://forum.solidproject.org/">Get help</a>: if you get stuck, please don’t hesitate to ask questions at our <a href="https://forum.solidproject.org/">Forum</a> or <a href="https://gitter.im/solid/chat">chat</a>.</li>
+  <li><a href="https://codesandbox.io/s/github/Vinnl/notepod/tree/5-writing-data/?module=%2Fsrc%2FApp.tsx">试试已经完成的笔记应用程序</a>.</li>
+  <li><a href="/for-developers/apps/vocabularies">学习更多相关词汇</a>: 了解常用词汇表，如果与您的用例不匹配时如何查找其他词汇表；如果找不到适合您应用程序的词汇表，该如何编写自己的词汇表。</li>
+  <li><a href="/for-developers/apps/tools">尝试其它库和工具</a>: 在本教程中我们使用了<a href="https://vincenttunru.gitlab.io/tripledoc/">Tripledoc</a> ， 但是您也许对JavaScript以外的其他语言的库感兴趣，也许会为您提供更多功能。</li>
+  <li><a href="https://forum.solidproject.org/">获取帮助</a>: 如果您遇到困难，请随时在我们的<a href="https://forum.solidproject.org/">论坛</a> 或 <a href="https://gitter.im/solid/chat">聊天</a>上求助。</li>
 </ul>
 
-<p>Good luck!</p>
+<p>祝好运！</p>
 
       </article>
     </div>
@@ -155,7 +154,7 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -166,37 +165,37 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
                 <a
                   href="/for-developers/apps/first-app"
                   
-                >Introduction</a></li>
+                >介绍</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/1-authentication"
                   
-                >Step 1: identifying the user</a></li>
+                >第一步: 识别用户</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/2-understanding-solid"
                   
-                >Step 2: Understanding Solid</a></li>
+                >第二步：理解Solid</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/3-reading-data"
                   
-                >Step 3: Reading data</a></li>
+                >第三步：读取数据</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/4-data-model"
                   
-                >Step 4: Setting up a Data Model</a></li>
+                >第四步：设置数据模型</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/5-writing-data"
                    class="is-active" 
-                >Step 5: Writing data & what's next</a></li>
+                >第五步：写数据以及接下去</a></li>
             
           </ul>
         
@@ -207,7 +206,7 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
       </li>
     
@@ -215,7 +214,7 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -223,7 +222,7 @@ already have our <code class="highlighter-rouge">notesList</code></a>, most of t
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Step 1: identifying the user · Solid</title>
+    <title>第一步: 识别用户 · Solid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -90,7 +90,7 @@
         
           <li>
             <a href="">
-              Step 1: identifying the user
+              第一步: 识别用户
             </a>
           </li>
         
@@ -104,44 +104,43 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <article class="section content">
-        <p>The starting point for any Solid Web App is to obtain the user’s <em>WebID</em>. The WebID is a URL at
-which one can find information about the user, and where to read or write data. The WebID will be provided by the user’s <em>Identity Provider</em> (which is usually their Pod Provider), but any interaction with a user’s Pod will require explicit permission to be granted by the Pod owner.</p>
+        <p>任何Solid Web App的起点都是获取用户的 <em>WebID</em> 。 WebID是一个URL，可以在其中找到有关用户以及在何处读取或写入数据的信息。 WebID将由用户的 <em>身份提供商</em>（通常是其Pod提供商）提供，但与用户Pod的任何交互都需要获得Pod所有者的明确许可。</p>
 
-<p>To obtain this permission, we will be using <a href="https://www.npmjs.com/package/solid-auth-client">solid-auth-client</a>. Its usage is relatively straightforward:</p>
+<p>要获得此许可，我们将使用<a href="https://www.npmjs.com/package/solid-auth-client">solid-auth-client</a>。它的用法相对简单：</p>
 
 <ol>
-  <li>Check if the user has already logged in.</li>
-  <li>If not, ask the user for their Identity Provider.</li>
-  <li>Then call <code class="highlighter-rouge">auth.login()</code> with the Identity Provider as the first argument.</li>
+  <li>检查用户是否已经登录。</li>
+  <li>如果没有，请用户提供其身份供应者。</li>
+  <li>然后使用身份提供者作为第一个参数调用<code class="highlighter-rouge">auth.login()</code>。</li>
 </ol>
 
-<p>You can ask the user for their Identity Provider using a regular <code class="highlighter-rouge">&lt;input type="url"&gt;</code>, or using <a href="https://www.npmjs.com/package/@solid/react/">a convenience library</a> that suggests the most commonly used Providers — at the time of writing, <a href="https://solid.community/">solid.community</a> and <a href="https://inrupt.net/">inrupt.net</a>.</p>
+<p>您可以使用常规的<code class="highlighter-rouge">&lt;input type="url"&gt;</code>或使用一个有常用建议的提供程序<a href="https://www.npmjs.com/package/@solid/react/">便捷库</a> ——（在撰写本文时有<a href="https://solid.community/">solid.community</a> and <a href="https://inrupt.net/">inrupt.net</a>）向用户询问其身份提供者。</p>
 
-<p>In code, that process would look roughly as follows:</p>
+<p>在代码中，该过程大致如下：</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">auth</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">solid-auth-client</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">async</span> <span class="kd">function</span> <span class="nx">getWebId</span><span class="p">()</span> <span class="p">{</span>
-  <span class="cm">/* 1. Check if we've already got the user's WebID and access to their Pod: */</span>
+  <span class="cm">/* 1. 检查我们是否已经获得用户的WebID并访问他们的Pod: */</span>
   <span class="kd">let</span> <span class="nx">session</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">currentSession</span><span class="p">();</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">session</span><span class="p">.</span><span class="nx">webId</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="cm">/* 2. User has not logged in; ask for their Identity Provider: */</span>
-  <span class="c1">// Implement `getIdentityProvider` to get a string with the user's Identity Provider (e.g.</span>
-  <span class="c1">// `https://inrupt.net` or `https://solid.community`) using a method of your choice.</span>
+  <span class="cm">/* 2. 用户尚未登录；请求其身份提供者： */</span>
+  <span class="c1">// 实现`getIdentityProvider`以获取用户身份提供者的字符串 (e.g.</span>
+  <span class="c1">// `https://inrupt.net` o或r `https://solid.community`) 使用你选择的方法。</span>
   <span class="kd">const</span> <span class="nx">identityProvider</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getIdentityProvider</span><span class="p">();</span>
 
-  <span class="cm">/* 3. Initiate the login process - this will redirect the user to their Identity Provider: */</span>
+  <span class="cm">/* 3. 启动登录过程-这会将用户重定向到其身份提供者： */</span>
   <span class="nx">auth</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="nx">identityProvider</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
 <p><span class="codesandbox-button-wrapper">
-<a href="https://codesandbox.io/s/romantic-wood-0i6z7?module=%2Fsrc%2Findex.js"><img src="/assets/img/play-codesandbox.svg" alt="Edit on CodeSandbox" /></a>
+<a href="https://codesandbox.io/s/romantic-wood-0i6z7?module=%2Fsrc%2Findex.js"><img src="/assets/img/play-codesandbox.svg" alt="在CodeSandbox上编辑" /></a>
 </span></p>
 
-<p>Next: <a href="/for-developers/apps/first-app/2-understanding-solid">Understanding Solid</a></p>
+<p>下一步: <a href="/for-developers/apps/first-app/2-understanding-solid">理解Solid</a></p>
 
       </article>
     </div>
@@ -155,7 +154,7 @@ which one can find information about the user, and where to read or write data. 
     
       <li>
         
-          <a href="/for-developers/apps/first-app">Writing a Solid application</a>
+          <a href="/for-developers/apps/first-app">编写一个Solid应用</a>
         
         <!-- This is for categories with sub-categories -->
         
@@ -166,37 +165,37 @@ which one can find information about the user, and where to read or write data. 
                 <a
                   href="/for-developers/apps/first-app"
                   
-                >Introduction</a></li>
+                >介绍</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/1-authentication"
                    class="is-active" 
-                >Step 1: identifying the user</a></li>
+                >第一步: 识别用户</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/2-understanding-solid"
                   
-                >Step 2: Understanding Solid</a></li>
+                >第二步：理解Solid</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/3-reading-data"
                   
-                >Step 3: Reading data</a></li>
+                >第三步：读取数据</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/4-data-model"
                   
-                >Step 4: Setting up a Data Model</a></li>
+                >第四步：设置数据模型</a></li>
             
               <li>
                 <a
                   href="/for-developers/apps/first-app/5-writing-data"
                   
-                >Step 5: Writing data & what's next</a></li>
+                >第五步：写数据以及接下去</a></li>
             
           </ul>
         
@@ -207,7 +206,7 @@ which one can find information about the user, and where to read or write data. 
     
       <li>
         
-          <a href="/for-developers/apps/vocabularies">Vocabularies</a>
+          <a href="/for-developers/apps/vocabularies">词汇表</a>
         
       </li>
     
@@ -215,7 +214,7 @@ which one can find information about the user, and where to read or write data. 
     
       <li>
         
-          <a href="/for-developers/apps/common-patterns">Common patterns</a>
+          <a href="/for-developers/apps/common-patterns">通用模式</a>
         
       </li>
     
@@ -223,7 +222,7 @@ which one can find information about the user, and where to read or write data. 
     
       <li>
         
-          <a href="/for-developers/apps/tools">Tools and libraries</a>
+          <a href="/for-developers/apps/tools">工具和库</a>
         
       </li>
     
