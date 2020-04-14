@@ -135,7 +135,13 @@
 
 <p>RDF是用于构建词汇表以在整个Web（又称为关联数据）中使用的语言。在RDF中，所有内容都由IRI（它们只是标准的Web URI（通用资源标识符））进行标识，但稍微现代一些，因为它们可以包含来自更为国际化的字符集中的字符（例如’α’, ‘δ’, 或 ‘ό’））。</p>
 
-<p>首先，我们需要一个IRI来表示（或识别）我们的新词汇（正如我们所说，RDF中的所有内容都由IRI来识别！），例如<a href="http://w3id.org/obelisk/">http://w3id.org/obelisk/</a>。从那里开始，让我们现在更新一下简单的英语示例：</p>
+<p>首先，我们需要一个IRI来表示（或识别）我们的新词汇（正如我们所说，RDF中的所有内容都由IRI来识别！），例如<a href="http://w3id.org/obelisk/">http://w3id.org/obelisk/</a>。从那里开始，让我们现在更新一下简单的英语示例：
+RDF is the language used to build vocabularies for use across the Web (aka
+Linked Data). In RDF, everything is identified by IRIs (which are simply
+standard web URIs (Universal Resource Identifiers), but just a little bit more
+modern in that they can contain characters from a more <em>Internationalised</em> set
+of characters (e.g. ‘α’, ‘δ’, or ‘ό’) - for more information, see
+ <a href="https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier">Wikipedia</a>).</p>
 
 <ul>
   <li>An <a href="http://w3id.org/obelisk/Obelisk">http://w3id.org/obelisk/Obelisk</a> is <a href="http://w3id.org/obelisk/ownedBy">http://w3id.org/obelisk/ownedBy</a> a <a href="http://w3id.org/obelisk/Person">http://w3id.org/obelisk/Person</a>.</li>
@@ -157,16 +163,16 @@ now looks like:</p>
 
 <h3 id="things-and-properties-of-things">Things, and Properties of Things</h3>
 
-<p>So from the above we can see that we want to describe both ‘Things’ (e.g.
-Obelisks and Sculptors), and the Properties of those things (e.g. their height,
-or who built them). So to distinguish between things and their properties, RDF
-allows us explicitly state which is which - i.e. ‘things’ are called Classes,
-and ‘properties’ are called Properties.</p>
+<p>From the above we can see that we want to describe both ‘Things’ (e.g.
+Obelisks and Sculptors), and the ‘Properties’ of those things (e.g. their
+height, or who owns them). RDF allows us to explicitly distinguish between
+these by referring to ‘things’ as Classes, and ‘properties’ as, well, 
+Properties!</p>
 
 <h3 id="defining-classes-of-things">Defining Classes of Things</h3>
 
 <p>In RDF, the general things that we can talk about are called <strong>Classes</strong>.
-Everything that went in a bubble in our first schema is therefore a Class, so
+Therefore everything that went into a bubble in our diagram above is a Class, so
 we could add the following to our vocabulary:</p>
 <ul>
   <li><a href="http://w3id.org/obelisk/Obelisk">obelisk:Obelisk</a> is a Class.</li>
@@ -275,7 +281,7 @@ could lead to something like this:</p>
 </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="c1"># A label for readability...</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
-    </span><span class="c1"># ... and a more descriptive comment for understandability.</span><span class="w">
+    </span><span class="c1"># ... and a more descriptive comment for a fuller explanation of this 'thing'.</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pillar with a pyramid-shaped top."</span><span class="w"> </span><span class="p">.</span><span class="w">
 
 </span><span class="nn">obelisk:</span><span class="n">Sculptor</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
@@ -308,7 +314,8 @@ repeating the thing that we talk about when adding multiple properties to it
   </li>
   <li>The shortcut:
     <div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">obelisk:</span><span class="n">ownedBy</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">Property</span><span class="w"> </span><span class="p">;</span><span class="w">
-  </span><span class="c1"># We removed the repetitions of obelisk:ownedBy, and replaced the end of line by ; instead of .</span><span class="w">
+  </span><span class="c1"># We removed the repetitions of obelisk:ownedBy, and replaced the end of</span><span class="w">
+  </span><span class="c1"># line by ; instead of .</span><span class="w">
   </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"owned by"</span><span class="w"> </span><span class="p">;</span><span class="w">
   </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"Relationship between an obelisk and the person who owns it, which is typically the person who ordered it, or to whom it was offered."</span><span class="w"> </span><span class="p">.</span><span class="w">
 </span></code></pre></div>    </div>
@@ -349,7 +356,7 @@ labels and comments for terms in our vocabulary:</p>
 
 <p>Of course for many text values the concept of ‘language’ is meaningless, for
 instance Social Security Numbers in the United States are often written as 
-stings, as they contain hyphens (e.g. ‘123-12-7890’), or the concept of a 
+strings, as they contain hyphens (e.g. ‘123-12-7890’), or the concept of a 
 username (or nickname) will most often not have any associated language. For
 these common use-cases, simply not specifying a language tag at all is expected.</p>
 
@@ -376,7 +383,7 @@ say is:</p>
 </span><span class="c1"># `obelisk:` is equivalent to http://w3id.org/obelisk/</span><span class="w">
 </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">.</span><span class="w">
 
-</span><span class="c1"># The remainder of the vocabulary is unchanged</span><span class="w">
+</span><span class="c1"># The remainder of the vocabulary is unchanged.</span><span class="w">
 </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="w"> </span><span class="p">.</span><span class="w">
@@ -403,19 +410,36 @@ and a suggested or preferred IRI (<a href="http://purl.org/vocab/vann/preferredN
 
 </span><span class="nn">obelisk:</span><span class="w"> </span><span class="nn">rdf:</span><span class="n">type</span><span class="w"> </span><span class="nn">owl:</span><span class="n">Ontology</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">dcterms:</span><span class="n">title</span><span class="w"> </span><span class="s">"Obelisk ontology"</span><span class="w"> </span><span class="p">;</span><span class="w">
-    </span><span class="c1"># The description can be a multi-line text</span><span class="w">
+    </span><span class="c1"># The description can be a multi-line text.</span><span class="w">
     </span><span class="nn">dcterms:</span><span class="n">description</span><span class="w"> </span><span class="s">"""
     The obelisk ontology aims at describing obelisks.
     """</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">vann:</span><span class="n">preferredNamespacePrefix</span><span class="w"> </span><span class="s">"obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">vann:</span><span class="n">preferredNamespaceURI</span><span class="w"> </span><span class="nl">&lt;http://w3id.org/obelisk/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
 
-</span><span class="c1"># The remainder of the vocabulary is unchanged</span><span class="w">
+</span><span class="c1"># The remainder of the vocabulary is unchanged.</span><span class="w">
 </span><span class="nn">obelisk:</span><span class="n">Obelisk</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nn">rdfs:</span><span class="n">Class</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">label</span><span class="w"> </span><span class="s">"Obelisk"</span><span class="w"> </span><span class="p">;</span><span class="w">
     </span><span class="nn">rdfs:</span><span class="n">comment</span><span class="w"> </span><span class="s">"An obelisk is a four-sided pilar with a pyramid-shaped top."</span><span class="w"> </span><span class="p">;</span><span class="w">
 </span><span class="c1"># ...</span><span class="w">
 </span></code></pre></div></div>
+
+<h2 id="some-simple-naming-conventions">Some simple naming conventions</h2>
+
+<p>You may have noticed some of the simple naming conventions used in our examples
+so far. These conventions are extremely common (but not universal!) across RDF
+vocabularies.</p>
+
+<ul>
+  <li>The basic convention is to use <a href="https://en.wikipedia.org/wiki/Camel_case">Camel Case</a>
+for all your terms, e.g. ‘ownedBy’ or ‘builtBy’.</li>
+  <li>Capitalize the first letter of Class terms, e.g. <code class="highlighter-rouge">Obelisk</code>, or <code class="highlighter-rouge">Sculptor</code>.</li>
+  <li>Lower-case the first letter of Property terms, e.g. <code class="highlighter-rouge">height</code> or <code class="highlighter-rouge">ownedBy</code>.</li>
+  <li>Lower-case prefixes, e.g. <code class="highlighter-rouge">@prefix obelisk: &lt;...&gt;</code>.</li>
+  <li>Don’t use hyphens, use underscores instead, because it simplifies using them in some programming languages.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
 
 <p>A reference version of this final vocabulary is available
 <a href="/assets/misc/tutorials/quickstart-obelisk.ttl">here</a>, and you can experiment
